@@ -7,3 +7,6 @@
 [submodule "bundle/git-vim"]
 	path = bundle/git-vim
 	url = http://github.com/Shougo/git-vim.git
+[submodule "bundle/conque"]
+	path = bundle/conque
+	url = http://github.com/rson/vim-conque.git
