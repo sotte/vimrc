@@ -8,6 +8,7 @@ set runtimepath+=$HOME/.vim/bundle/git-vim
 set runtimepath+=$HOME/.vim/bundle/nerdtree
 set runtimepath+=$HOME/.vim/bundle/Command-T
 set runtimepath+=$HOME/.vim/bundle/vim-latex
+set runtimepath+=$HOME/.vim/bundle/vimwiki
 
 filetype on
 filetype plugin indent on
