@@ -3,60 +3,79 @@ set nocompatible
 " Setup runtime path for plugins
 " at the same time it's easy to see what plugins are loaded
 " pathogen didn'd really work :(
-set runtimepath+=$HOME/.vim/bundle/vim-conque
+set runtimepath+=$HOME/.vim/bundle/conque
 set runtimepath+=$HOME/.vim/bundle/git-vim
 set runtimepath+=$HOME/.vim/bundle/nerdtree
 set runtimepath+=$HOME/.vim/bundle/Command-T
 set runtimepath+=$HOME/.vim/bundle/vim-latex
 set runtimepath+=$HOME/.vim/bundle/vimwiki
 
-filetype on
-filetype plugin indent on
 
-set number
-syntax on
 colorscheme desert
 
-" Sane default values
-set tabstop=4
+" Editing behaviour {{{
+filetype on
+filetype plugin on
+filetype indent on
+syntax on
+set number                      " always show line numbers
+set wrap                        " wrap lines
+set linebreak
+set nolist
+set tabstop=4                   " a tab is four spaces
 set softtabstop=4
-set shiftwidth=4
-set textwidth=78
+set shiftwidth=4                " number of spaces to use for autoindenting
+"set textwidth=78
+set backspace=indent,eol,start  " allow backspacing over everything in insert mode
 set smarttab
 set expandtab
-set laststatus=2
+set laststatus=2                " tell VIM to always put a status line in, even
+                                " if there is only one window
+set scrolloff=4                 " keep 4 lines off the edges of the screen when scrolling
+                                " set autoindent
+"set virtualedit=all             " allow the cursor to go in to "invalid" places
+set cursorline                  " highlight current line
 set showmatch
-set incsearch
-
-"set autoindent
-set foldmethod=indent
-
-" Allow backgrounding buffers without writing them, and remember marks/undo
-" for backgrounded buffers
-set hidden
-
-" Remember more commands and search history
-set history=1000
-
-" Make tab completion for files/buffers act like bash
-set wildmenu
-
-" Make searches case-sensitive only if they contain upper-case characters
-set ignorecase
+set hlsearch                    " highlight search terms
+set incsearch                   " show search matches as you type
+set ignorecase                  " Make searches case-sensitive only if they contain upper-case characters
 set smartcase
+set foldmethod=indent
+set mouse=a " enable using the mouse if terminal emulator
+" }}}
+
+" Vim behaviour {{{
+set hidden                      " Allow backgrounding buffers without writing them, and remember marks/undo for backgrounded buffers
+set history=1000                " Remember more commands and search history
+set undolevels=1000             " use many muchos levels of undo
+set nobackup                    " do not keep backup files, it's 70's style cluttering
+set noswapfile                  " do not write annoying intermediate swap files,
+                                " who did ever restore from swap files anyway?
+set wildmenu                    " Make tab completion for files/buffers act like bash
+set wildmode=list:full          " show a list when pressing tab and complete
+                                " first full match
+"set wildmode=longest,list       " GRB: use emacs-style tab completion when selecting files, etc
+set title                       " change the terminal's title
+set visualbell                  " don't beep
+set noerrorbells                " don't beep
+set ruler		                " show the cursor position all the time
+set showcmd                     " show (partial) command in the last line of the screen
+                                " this also shows visual selection info
+set modeline                    " allow files to include a 'mode line', to override vim defaults
+set modelines=5                 " check the first 5 lines for a modeline
 
 " Store temporary files in a central spot
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+" }}}
 
-" show the cursor position all the time
-set ruler		
-" display incomplete commands
-set showcmd		
 
-" GRB: hide the toolbar in GUI mode
+" hide the toolbar in GUI mode
 if has("gui_running")
     set go-=T
+    " Don't show scroll bars in the GUI
+    set guioptions-=L
+    set guioptions-=r
 end
 
 " avoid error msg that have to do with fish shell
@@ -64,21 +83,6 @@ if $SHELL =~ 'bin/fish'
     set shell=/bin/sh
 endif
 
-" Don't show scroll bars in the GUI
-set guioptions-=L
-set guioptions-=r
-
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
-  "set guifont=Monaco:h12
-  "set guifont=Inconsolata-dz:h12
-endif
-
-" GRB: use emacs-style tab completion when selecting files, etc
-set wildmode=longest,list
 
 " GRB: Put useful info in status line
 set statusline=%<%f%=\ [%1*%M%*%n%R%H]\ %-19(%3l,%02c%03V%)%O'%02b'
@@ -86,14 +90,22 @@ hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
 " Number of screen lines to use for the command-line
 set cmdheight=2
 
+
+
+" Shortcut mappings {{{
+" Since I never use the ; key anyway, this is a real optimization for almost
+" all Vim commands, since we don't have to press that annoying Shift key that
+" slows the commands down
+nnoremap ; :
+
 " GRB: clear the search buffer when hitting return
 nnoremap <CR> :nohlsearch<CR>/<BS>
 
 
-if version >= 700
-    autocmd FileType python set omnifunc=pythoncomplete#Complete
+"if version >= 700
+    "autocmd FileType python set omnifunc=pythoncomplete#Complete
     "let Tlist_Ctags_Cmd='~/bin/ctags'
-endif
+"endif
 
 " higlight misspeled python stuff
 if has("gui_running") 
@@ -110,8 +122,6 @@ if has("autocmd")
   autocmd bufwritepost .vimrc source $MYVIMRC
 endif
 
-" highlight current line
-set cursorline
 
 " better python highlighting - see syntax/python.vim for more details
 let python_highlight_all = 1
@@ -193,19 +203,43 @@ map <D-0> :tablast<CR>
 
 " load pydict file for autocompletion
 " MUST be the absolute path!!!
-let g:pydiction_location = '/Users/otte/.vim/ftplugin/pydiction/complete-dict'
+"let g:pydiction_location = '/Users/otte/.vim/ftplugin/pydiction/complete-dict'
 
 
 " nicer cursor movements
 " due to the fact that I use colemak
+" -----------------------------------
+" use visible lines instead of real lines
+
 " left
 map <C-n> h
+ 
 " right
 map <C-i> l
+
 " up
-map <C-u> k
-" down
-map <C-e> j
+"map <C-u> k
+nmap <C-u> gk
+vmap <C-u> gk
+
+" down 
+"map <C-e> j
+vmap <C-e> gj
+nmap <C-e> gj
+
+" end of line etc
+vmap <D-4> g$
+nmap <D-4> g$
+vmap <D-6> g^
+vmap <D-0> g^
+nmap <D-6> g^
+nmap <D-0> g^
+
+" Use the damn hjkl keys
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
 
 
 " Soft wrapping text
@@ -221,13 +255,12 @@ command! -nargs=* Wrap set wrap linebreak nolist textwidth=0
 " IMPORTANT: grep will sometimes skip displaying the file name if you
 " search in a singe file. This will confuse Latex-Suite. Set your grep
 " program to always generate a file-name.
-" set grepprg=grep\ -nH\ $*
+set grepprg=grep\ -nH\ $*
 
 " OPTIONAL: Starting with Vim 7, the filetype of empty .tex files defaults to
 " 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
 " The following changes the default filetype back to 'tex':
-"let g:tex_flavor='latex'
+let g:tex_flavor='latex'
 
 " use xelatex for compiling (becaus I use the Libertine font)
-"let g:Tex_CompileRule_pdf = 'xelatex -interaction=nonstopmode $*'
-
+let g:Tex_CompileRule_pdf = 'xelatex -interaction=nonstopmode $*'
