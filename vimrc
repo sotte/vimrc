@@ -93,10 +93,6 @@ set cmdheight=2
 
 
 " Shortcut mappings {{{
-" Since I never use the ; key anyway, this is a real optimization for almost
-" all Vim commands, since we don't have to press that annoying Shift key that
-" slows the commands down
-nnoremap ; :
 
 " GRB: clear the search buffer when hitting return
 nnoremap <CR> :nohlsearch<CR>/<BS>
