@@ -242,6 +242,13 @@ map <left> <nop>
 map <right> <nop>
 
 
+" some really common german abbrevs
+iabbrev fuer für
+iabbrev ueber über
+iabbrev moeglich möglich
+iabbrev muessen müssen
+
+
 " Soft wrapping text
 " http://vimcasts.org/episodes/soft-wrapping-text/
 " simply enter :Wrap
