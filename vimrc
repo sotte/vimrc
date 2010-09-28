@@ -155,10 +155,6 @@ imap <F3> <C-R>=strftime("%Y-%m-%d %a")<CR>
 " Don't use Ex mode, use Q for formatting
 "map Q gq
 
-" Map ESC tp Control + Space
-" In Mac OS X, mapping <S-space> does not work
-"imap <C-space> <Esc>
-
 " map autocompletion to cmd space
 if has("gui")
     " C-Space seems to work under gVim on both Linux and win32
