@@ -204,20 +204,20 @@ map <D-0> :tablast<CR>
 " use visible lines instead of real lines
 
 " left
-map <C-n> h
+" map <C-n> h
  
 " right
-map <C-i> l
+" map <C-i> l
 
 " up
 "map <C-u> k
-nmap <C-u> gk
-vmap <C-u> gk
+" nmap <C-u> gk
+" vmap <C-u> gk
 
 " down 
 "map <C-e> j
-vmap <C-e> gj
-nmap <C-e> gj
+" vmap <C-e> gj
+" nmap <C-e> gj
 
 " end of line etc
 vmap <D-4> g$
