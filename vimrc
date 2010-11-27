@@ -228,10 +228,11 @@ nmap <D-6> g^
 nmap <D-0> g^
 
 " Use the damn hjkl keys
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
+" I have mapped AltGr+(n|e|i|u) to mavements. so the following is not needed.
+" map <up> <nop>
+" map <down> <nop>
+" map <left> <nop>
+" map <right> <nop>
 
 
 " some really common german abbrevs
