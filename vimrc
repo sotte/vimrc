@@ -235,10 +235,8 @@ map <right> <nop>
 
 
 " some really common german abbrevs
-iabbrev fuer für
-iabbrev ueber über
-iabbrev moeglich möglich
-iabbrev muessen müssen
+iabbrev KK kinematische Kette
+
 
 
 " Soft wrapping text
@@ -261,5 +259,10 @@ set grepprg=grep\ -nH\ $*
 " The following changes the default filetype back to 'tex':
 let g:tex_flavor='latex'
 
+
 " use xelatex for compiling (becaus I use the Libertine font)
 let g:Tex_CompileRule_pdf = 'xelatex -interaction=nonstopmode $*'
+let g:Tex_DefaultTargetFormat = 'pdf'
+"let g:Tex_ViewRule_pdf = 'evince'
+let g:Tex_MultipleCompileFormats = 'pdf'
+
