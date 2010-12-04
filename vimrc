@@ -168,6 +168,9 @@ endif
 " Substitute word under cursor. VERY useful
 nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
 
+" use regular regex (not vim style) for search
+nnoremap / /\v
+vnoremap / /\v
 
 " spellchecker
 nmap <silent> <leader>s :set spell!<CR>
