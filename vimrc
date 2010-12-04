@@ -8,6 +8,7 @@ set runtimepath+=$HOME/.vim/bundle/vim-fugitive
 set runtimepath+=$HOME/.vim/bundle/Command-T
 set runtimepath+=$HOME/.vim/bundle/latex-suite
 set runtimepath+=$HOME/.vim/bundle/vimwiki
+set runtimepath+=$HOME/.vim/bundle/ack-vim
 
 
 colorscheme desert
@@ -244,6 +245,10 @@ iabbrev KK kinematische Kette
 " simply enter :Wrap
 command! -nargs=* Wrap set wrap linebreak nolist textwidth=0
 
+""""""""""""""""""""
+" Ack
+""""""""""""""""""""
+let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             Latex
