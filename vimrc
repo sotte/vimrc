@@ -39,7 +39,7 @@ set hlsearch                    " highlight search terms
 set incsearch                   " show search matches as you type
 set ignorecase                  " Make searches case-sensitive only if they contain upper-case characters
 set smartcase
-set foldmethod=indent
+" set foldmethod=indent
 set mouse=a " enable using the mouse if terminal emulator
 " }}}
 
