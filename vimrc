@@ -9,6 +9,7 @@ set runtimepath+=$HOME/.vim/bundle/Command-T
 set runtimepath+=$HOME/.vim/bundle/latex-suite
 set runtimepath+=$HOME/.vim/bundle/vimwiki
 set runtimepath+=$HOME/.vim/bundle/ack-vim
+set runtimepath+=$HOME/.vim/bundle/snipmate
 
 
 colorscheme desert
