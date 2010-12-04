@@ -251,6 +251,7 @@ command! -nargs=* Wrap set wrap linebreak nolist textwidth=0
 " Ack
 """"""""""""""""""""
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
+:nnoremap <leader>a :Ack 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             Latex
