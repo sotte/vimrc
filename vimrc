@@ -4,8 +4,7 @@ set nocompatible
 " at the same time it's easy to see what plugins are loaded
 " pathogen didn'd really work :(
 set runtimepath+=$HOME/.vim/bundle/conque
-set runtimepath+=$HOME/.vim/bundle/git-vim
-set runtimepath+=$HOME/.vim/bundle/nerdtree
+set runtimepath+=$HOME/.vim/bundle/vim-fugitive
 set runtimepath+=$HOME/.vim/bundle/Command-T
 set runtimepath+=$HOME/.vim/bundle/vim-latex
 set runtimepath+=$HOME/.vim/bundle/vimwiki
