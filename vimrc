@@ -6,7 +6,7 @@ set nocompatible
 set runtimepath+=$HOME/.vim/bundle/conque
 set runtimepath+=$HOME/.vim/bundle/vim-fugitive
 set runtimepath+=$HOME/.vim/bundle/Command-T
-set runtimepath+=$HOME/.vim/bundle/vim-latex
+set runtimepath+=$HOME/.vim/bundle/latex-suite
 set runtimepath+=$HOME/.vim/bundle/vimwiki
 
 
