@@ -9,8 +9,9 @@ set runtimepath+=$HOME/.vim/bundle/Command-T
 set runtimepath+=$HOME/.vim/bundle/latex-suite
 set runtimepath+=$HOME/.vim/bundle/vimwiki
 set runtimepath+=$HOME/.vim/bundle/ack-vim
-set runtimepath+=$HOME/.vim/bundle/snipmate
 set runtimepath+=$HOME/.vim/bundle/nerdcommenter
+set runtimepath+=$HOME/.vim/bundle/snipmate
+
 
 
 colorscheme desert
@@ -20,6 +21,8 @@ filetype on
 filetype plugin on
 filetype indent on
 syntax on
+
+
 set number                      " always show line numbers
 set wrap                        " wrap lines
 set linebreak
@@ -36,7 +39,7 @@ set laststatus=2                " tell VIM to always put a status line in, even
 set scrolloff=4                 " keep 4 lines off the edges of the screen when scrolling
                                 " set autoindent
 "set virtualedit=all             " allow the cursor to go in to "invalid" places
-set cursorline                  " highlight current line
+" set cursorline                  " highlight current line
 set showmatch
 set hlsearch                    " highlight search terms
 set incsearch                   " show search matches as you type
@@ -240,15 +243,12 @@ map <down> gj
 " map <right> <nop>
 
 
-" some really common german abbrevs
-iabbrev KK kinematische Kette
-
-
 
 " Soft wrapping text
 " http://vimcasts.org/episodes/soft-wrapping-text/
 " simply enter :Wrap
 command! -nargs=* Wrap set wrap linebreak nolist textwidth=0
+
 
 """"""""""""""""""""
 " Ack
@@ -263,7 +263,13 @@ let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 :nnoremap <leader>gs :Gstatus<CR>
 :nnoremap <leader>gd :Gdiff<CR>
 :nnoremap <leader>gc :Gcommit<CR>
-:nnoremap <leader>ga :Gadd<CR>
+
+
+""""""""""""""""""""""""
+" SnipMate
+""""""""""""""""""""""""
+" need to source this file -- http://code.google.com/p/snipmate/issues/detail?id=66
+source ~/.vim/bundle/snipmate/after/plugin/snipMate.vim
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -285,3 +291,25 @@ let g:Tex_DefaultTargetFormat = 'pdf'
 "let g:Tex_ViewRule_pdf = 'evince'
 let g:Tex_MultipleCompileFormats = 'pdf'
 
+""""""""""""""""""""""""""""""""""""
+" vimwiki binding
+""""""""""""""""""""""""""""""""""""
+" list all open tasks in quickfix window
+:nnoremap <leader>jl :vimgrep /\v^* \[ \] /gj ~/vimwiki/*.wiki <CR> :cope <CR>
+
+" list open tasks with TODAY tag
+:nnoremap <leader>jt :vimgrep /\v^* \[ \] .*TODAY/gj ~/vimwiki/*.wiki <CR> :cope <CR>
+
+" mark job as TODAY
+" - need to be in quickfix window;
+" - jump to entry;
+" - append TODAY at the end of the line;
+" - jump back to quickfix window (qf not updated) but same position
+:nnoremap <leader>jj <CR> A TODAY<esc>:w<CR> :cope<CR>
+
+" mark job as done: 
+" - need to be in quickfix window;
+" - jump to entry;
+" - mark as done;
+" - jump back to quickfix window (qf not updated) but same position
+:nnoremap <leader>jd <CR> :VimwikiToggleListItem<CR>:w<CR>:cope<CR>
