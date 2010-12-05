@@ -14,40 +14,59 @@ set runtimepath+=$HOME/.vim/bundle/snipmate
 
 
 
-colorscheme desert
+colorscheme molokai
 
 " Editing behaviour {{{
 filetype on
 filetype plugin on
 filetype indent on
+set modelines=0
 syntax on
 
-
+set encoding=utf-8              " use UTF-8 encoding
 set number                      " always show line numbers
+
+" formating options for text
+" see http://vimcasts.org/episodes/hard-wrapping-text/ for more infos
+set formatoptions=qrn1
 set wrap                        " wrap lines
+set textwidth=78
+set colorcolumn=85
 set linebreak
-set nolist
+set list
+set listchars=tab:▸\ ,eol:¬
+
+
+" tabs and whitespaces
 set tabstop=4                   " a tab is four spaces
-set softtabstop=4
 set shiftwidth=4                " number of spaces to use for autoindenting
-"set textwidth=78
+set softtabstop=4
+set expandtab                   " use whitspace instaed of tab
+
 set backspace=indent,eol,start  " allow backspacing over everything in insert mode
 set smarttab
-set expandtab
 set laststatus=2                " tell VIM to always put a status line in, even
                                 " if there is only one window
 set scrolloff=4                 " keep 4 lines off the edges of the screen when scrolling
+
+set ttyfast
                                 " set autoindent
 "set virtualedit=all             " allow the cursor to go in to "invalid" places
 " set cursorline                  " highlight current line
+
+
+" === search and replace ===
 set showmatch
 set hlsearch                    " highlight search terms
 set incsearch                   " show search matches as you type
 set ignorecase                  " Make searches case-sensitive only if they contain upper-case characters
 set smartcase
+set gdefault                    " gdefault applies substitutions globally on lines
+
 " set foldmethod=indent
 set mouse=a " enable using the mouse if terminal emulator
 
+" global undo file
 set undofile        " use global undo
 set undodir=~/tmp   " this folder for global undo
 " }}}
@@ -60,17 +79,17 @@ set nobackup                    " do not keep backup files, it's 70's style clut
 set noswapfile                  " do not write annoying intermediate swap files,
                                 " who did ever restore from swap files anyway?
 set wildmenu                    " Make tab completion for files/buffers act like bash
-set wildmode=list:full          " show a list when pressing tab and complete
+"set wildmode=list:full          " show a list when pressing tab and complete
                                 " first full match
-"set wildmode=longest,list       " GRB: use emacs-style tab completion when selecting files, etc
+set wildmode=longest,list       " GRB: use emacs-style tab completion when selecting files, etc
 set title                       " change the terminal's title
 set visualbell                  " don't beep
 set noerrorbells                " don't beep
-set ruler		                " show the cursor position all the time
+set ruler                       " show the cursor position all the time
 set showcmd                     " show (partial) command in the last line of the screen
                                 " this also shows visual selection info
-set modeline                    " allow files to include a 'mode line', to override vim defaults
-set modelines=5                 " check the first 5 lines for a modeline
+
+
 
 " Store temporary files in a central spot
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
@@ -86,6 +105,7 @@ if has("gui_running")
     set guioptions-=r
 end
 
+
 " avoid error msg that have to do with fish shell
 if $SHELL =~ 'bin/fish'
     set shell=/bin/sh
@@ -99,27 +119,21 @@ hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
 set cmdheight=2
 
 
-
-" Shortcut mappings {{{
-
-" GRB: clear the search buffer when hitting return
-nnoremap <leader><space> :nohlsearch<CR>
-
-
-"if version >= 700
-    "autocmd FileType python set omnifunc=pythoncomplete#Complete
-    "let Tlist_Ctags_Cmd='~/bin/ctags'
-"endif
-
 " higlight misspeled python stuff
 if has("gui_running") 
     highlight SpellBad term=underline gui=undercurl guisp=Orange 
 endif 
 
+
+" save on losing focus
+au FocusLost * :wa
+
+
 " activate proto syntax hl
 augroup filetype
     au! BufRead,BufNewFile *.proto setfiletype proto
 augroup end
+
 
 " Source the vimrc file after saving it
 if has("autocmd")
@@ -130,34 +144,49 @@ endif
 " better python highlighting - see syntax/python.vim for more details
 let python_highlight_all = 1
 
-" formating options for text
-" see http://vimcasts.org/episodes/hard-wrapping-text/ for more infos
-set formatoptions=t
-
 
 " highlight variable under cursor (not smart)
 au BufRead,BufNewFile *.py,*.pyw,*.c  autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
+
 
 " different color for autocomplete menu
 highlight Pmenu ctermfg=1 ctermbg=4 guibg=grey30
 
 
-"""""""""""""""""""""
-"   Mappings
-"""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"   Mappings -- Shortcut mappings {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " remap leader
 let mapleader=","
 
-" map F2 to open NERDTree
-map <F2> :NERDTreeToggle<CR>
 
-" Insert Date with F3
-nmap <F3> a<C-R>=strftime("%Y-%m-%d %a")<CR><Esc>
-imap <F3> <C-R>=strftime("%Y-%m-%d %a")<CR>
+" additional esc with ii
+inoremap ii <ESC>
+
+
+" clear the search buffer when hitting return
+nnoremap <leader><space> :nohlsearch<CR>
+
+
+" === jump to matching bracket with tab ===
+nnoremap <tab> %
+vnoremap <tab> %
+
+
+" Insert Date 
+nmap <leader>st a<C-R>=strftime("%Y-%m-%d %a")<CR><Esc>
+imap ,st <C-R>=strftime("%Y-%m-%d %a")<CR>
+
 
 " Don't use Ex mode, use Q for formatting
 "map Q gq
+
+
+" toggle list
+nmap <leader>sl :set list!<CR>
+
 
 " map autocompletion to cmd space
 if has("gui")
@@ -171,37 +200,48 @@ else " no gui
   endif
 endif
 
+
 " Substitute word under cursor. VERY useful
-nnoremap <Leader>r :%s/\<<C-r><C-w>\>/
+nnoremap <Leader>sr :%s/\<<C-r><C-w>\>/
+
 
 " use regular regex (not vim style) for search
 nnoremap / /\v
 vnoremap / /\v
 
+
 " spellchecker
-nmap <silent> <leader>s :set spell!<CR>
 set spelllang=de_de
+nmap <silent> <leader>ss :set spell!<CR>
+
 
 " open .vimrc in new tab with: ,v
-nmap <leader>v :tabedit $MYVIMRC<CR>
+nmap <leader>sv :tabedit $MYVIMRC<CR>
+
+
+" split window stuff
+" open split window
+nnoremap <leader>v <C-w>v<C-w>l
+" left
+nnoremap <C-n> <C-w>h
+" down
+nnoremap <C-e> <C-w>j
+" up
+nnoremap <C-u> <C-w>k
+" down
+nnoremap <C-i> <C-w>l
 
 
 " Start python on F5
 autocmd FileType python map <F5> :w<CR>:!python "%"<CR>
 
-" tab navigation that is like the firefox one
-map <D-S-]> gt
-map <D-S-[> gT
-map <D-1> 1gt
-map <D-2> 2gt
-map <D-3> 3gt
-map <D-4> 4gt
-map <D-5> 5gt
-map <D-6> 6gt
-map <D-7> 7gt
-map <D-8> 8gt
-map <D-9> 9gt
-map <D-0> :tablast<CR>
+
+" tab navigation 
+" tab left
+map <C-S-n> gT
+" tab right
+map <C-S-i> gt
+map <C-TAB> gt
 
 
 " load pydict file for autocompletion
@@ -214,32 +254,8 @@ map <D-0> :tablast<CR>
 " -----------------------------------
 " use visible lines instead of real lines
 
-" left
-" map <C-n> h
- 
-" right
-" map <C-i> l
-
-" up
-"map <C-u> k
-" nmap <C-u> gk
-" vmap <C-u> gk
-
-" down 
-"map <C-e> j
-" vmap <C-e> gj
-" nmap <C-e> gj
-
-" end of line etc
-vmap <D-4> g$
-nmap <D-4> g$
-vmap <D-6> g^
-vmap <D-0> g^
-nmap <D-6> g^
-nmap <D-0> g^
-
 " Use the damn hjkl keys
-" I have mapped AltGr+(n|e|i|u) to mavements. so the following is not needed.
+" I have mapped AltGr+(n|e|i|u) to movements.
 map <up> gk
 map <down> gj
 " map <left> <nop>
