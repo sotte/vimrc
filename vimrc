@@ -47,6 +47,9 @@ set ignorecase                  " Make searches case-sensitive only if they cont
 set smartcase
 " set foldmethod=indent
 set mouse=a " enable using the mouse if terminal emulator
+
+set undofile        " use global undo
+set undodir=~/tmp   " this folder for global undo
 " }}}
 
 " Vim behaviour {{{
