@@ -238,9 +238,9 @@ autocmd FileType python map <F5> :w<CR>:!python "%"<CR>
 
 " tab navigation 
 " tab left
-map <C-S-n> gT
+"map <C-S-n> gT
 " tab right
-map <C-S-i> gt
+"map <C-S-i> gt
 map <C-TAB> gt
 
 
