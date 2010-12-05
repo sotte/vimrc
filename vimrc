@@ -97,7 +97,7 @@ set cmdheight=2
 " Shortcut mappings {{{
 
 " GRB: clear the search buffer when hitting return
-nnoremap <CR> :nohlsearch<CR>/<BS>
+nnoremap <leader><space> :nohlsearch<CR>
 
 
 "if version >= 700
@@ -234,8 +234,8 @@ nmap <D-0> g^
 
 " Use the damn hjkl keys
 " I have mapped AltGr+(n|e|i|u) to mavements. so the following is not needed.
-" map <up> <nop>
-" map <down> <nop>
+map <up> gk
+map <down> gj
 " map <left> <nop>
 " map <right> <nop>
 
