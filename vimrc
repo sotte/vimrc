@@ -20,7 +20,7 @@ colorscheme molokai
 filetype on
 filetype plugin on
 filetype indent on
-set modelines=0
+"set modelines=0
 syntax on
 
 set encoding=utf-8              " use UTF-8 encoding
