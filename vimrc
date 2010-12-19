@@ -26,10 +26,11 @@ syntax on
 set encoding=utf-8              " use UTF-8 encoding
 set number                      " always show line numbers
 
+
 if has("gui_running")
   " GUI is running or is about to start.
   " Maximize gvim window.
-  set lines=999 columns=999
+  set lines=44 columns=83
 endif
 
 
@@ -59,7 +60,7 @@ set scrolloff=4                 " keep 4 lines off the edges of the screen when 
 set ttyfast
                                 " set autoindent
 "set virtualedit=all             " allow the cursor to go in to "invalid" places
-" set cursorline                  " highlight current line
+ set cursorline                  " highlight current line
 
 
 " === search and replace ===
