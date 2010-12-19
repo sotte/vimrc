@@ -26,6 +26,13 @@ syntax on
 set encoding=utf-8              " use UTF-8 encoding
 set number                      " always show line numbers
 
+if has("gui_running")
+  " GUI is running or is about to start.
+  " Maximize gvim window.
+  set lines=999 columns=999
+endif
+
+
 " formating options for text
 " see http://vimcasts.org/episodes/hard-wrapping-text/ for more infos
 set formatoptions=qrn1
