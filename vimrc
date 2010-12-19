@@ -30,8 +30,8 @@ set number                      " always show line numbers
 " see http://vimcasts.org/episodes/hard-wrapping-text/ for more infos
 set formatoptions=qrn1
 set wrap                        " wrap lines
-set textwidth=78
-set colorcolumn=85
+set textwidth=79
+set colorcolumn=79
 set linebreak
 set list
 set listchars=tab:▸\ ,eol:¬
