@@ -2,7 +2,16 @@ set nocompatible
 
 " Setup runtime path for plugins
 " at the same time it's easy to see what plugins are loaded
-" pathogen didn'd really work :(
+" pathogen didn't really work :(
+"
+" How to install plugins:
+" =======================
+" git submodule add http://github.com/tpope/vim-fugitive.git bundle/fugitive
+" git add .
+" git commit
+"
+" add runtimepath below
+
 set runtimepath+=$HOME/.vim/bundle/conque
 set runtimepath+=$HOME/.vim/bundle/vim-fugitive
 set runtimepath+=$HOME/.vim/bundle/Command-T
