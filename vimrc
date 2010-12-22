@@ -64,7 +64,6 @@ set expandtab                   " use whitspace instaed of tab
 
 set backspace=indent,eol,start  " allow backspacing over everything in insert mode
 set smarttab
-set laststatus=2                " tell VIM to always put a status line in, even
                                 " if there is only one window
 set scrolloff=4                 " keep 4 lines off the edges of the screen when scrolling
 
@@ -131,8 +130,29 @@ if $SHELL =~ 'bin/fish'
 endif
 
 
-" GRB: Put useful info in status line
-set statusline=%<%f%=\ [%1*%M%*%n%R%H]\ %-19(%3l,%02c%03V%)%O'%02b'
+" ==========
+" statusline
+" ==========
+set laststatus=2                " tell VIM to always put a status line in, even
+" cf the default statusline: %<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+" format markers:
+"   %< truncation point
+"   %n buffer number
+"   %f relative path to file
+"   %m modified flag [+] (modified), [-] (unmodifiable) or nothing
+"   %r readonly flag [RO]
+"   %y filetype [ruby]
+"   %= split point for left and right justification
+"   %-35. width specification
+"   %l current line number
+"   %L number of lines in buffer
+"   %c current column number
+"   %V current virtual column number (-n), if different from %c
+"   %P percentage through buffer
+"   %) end of width specification
+set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)
+
+" higligt mode
 hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
 " Number of screen lines to use for the command-line
 set cmdheight=2
