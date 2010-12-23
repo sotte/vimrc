@@ -22,6 +22,7 @@ set runtimepath+=$HOME/.vim/bundle/nerdcommenter
 set runtimepath+=$HOME/.vim/bundle/snipmate
 set runtimepath+=$HOME/.vim/bundle/unimpaired
 set runtimepath+=$HOME/.vim/bundle/autoclose
+set runtimepath+=$HOME/.vim/bundle/vim-pep8
 
 
 
