@@ -194,6 +194,12 @@ au BufRead,BufNewFile *.py,*.pyw,*.c  autocmd CursorMoved * silent! exe printf('
 highlight Pmenu ctermfg=1 ctermbg=4 guibg=grey30
 
 
+" Command-T options
+let g:CommandTMaxFiles=2000
+let g:CommandTMaxHeight=15
+let g:CommandTMatchWindowAtTop=1
+set wildignore+=*.o,*.obj,*.pyc
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   Mappings -- Shortcut mappings {{{
