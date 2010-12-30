@@ -252,6 +252,10 @@ endif
 nnoremap <Leader>sr :%s/\<<C-r><C-w>\>/
 
 
+" change working dir to file
+map ,cd :cd %:p:h<CR>
+
+
 " use regular regex (not vim style) for search
 nnoremap / /\v
 vnoremap / /\v
