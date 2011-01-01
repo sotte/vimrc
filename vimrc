@@ -24,7 +24,7 @@ set runtimepath+=$HOME/.vim/bundle/unimpaired
 set runtimepath+=$HOME/.vim/bundle/autoclose
 set runtimepath+=$HOME/.vim/bundle/vim-pep8
 set runtimepath+=$HOME/.vim/bundle/pyflakes-vim
-
+set runtimepath+=$HOME/.vim/bundle/speeddating
 
 
 colorscheme molokai
