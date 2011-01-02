@@ -1,32 +1,15 @@
-set nocompatible
+" pathogen
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
 
-" Setup runtime path for plugins
-" at the same time it's easy to see what plugins are loaded
-" pathogen didn't really work :(
-"
 " How to install plugins:
 " =======================
 " git submodule add http://github.com/tpope/vim-fugitive.git bundle/fugitive
 " git add .
 " git commit
 "
-" add runtimepath below
 
-set runtimepath+=$HOME/.vim/bundle/conque
-set runtimepath+=$HOME/.vim/bundle/vim-fugitive
-set runtimepath+=$HOME/.vim/bundle/Command-T
-set runtimepath+=$HOME/.vim/bundle/latex-suite
-set runtimepath+=$HOME/.vim/bundle/vimwiki
-set runtimepath+=$HOME/.vim/bundle/ack-vim
-set runtimepath+=$HOME/.vim/bundle/nerdcommenter
-set runtimepath+=$HOME/.vim/bundle/snipmate
-set runtimepath+=$HOME/.vim/bundle/unimpaired
-set runtimepath+=$HOME/.vim/bundle/autoclose
-set runtimepath+=$HOME/.vim/bundle/vim-pep8
-set runtimepath+=$HOME/.vim/bundle/pyflakes-vim
-set runtimepath+=$HOME/.vim/bundle/speeddating
-
-
+set nocompatible
 colorscheme molokai
 
 " Editing behaviour {{{
