@@ -185,8 +185,8 @@ set wildignore+=*.o,*.obj,*.pyc
 
 
 " ctags and tag list 
-set tags+=$HOME/.vim/tags/fumanoid.ctags
 let Tlist_Ctags_Cmd = "/usr/bin/ctags"
+set tags=tags;/
 let Tlist_WinWidth = 40
 let Tlist_Use_Right_Window = 1
 map <F4> :TlistToggle<cr>
