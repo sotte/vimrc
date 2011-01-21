@@ -213,6 +213,11 @@ nnoremap <tab> %
 vnoremap <tab> %
 
 
+" a.vim
+" switch between .h and .cpp
+map <C-TAB> :A <CR>
+
+
 " Insert Date 
 nmap <leader>st a<C-R>=strftime("%Y-%m-%d %a")<CR><Esc>
 imap ,st <C-R>=strftime("%Y-%m-%d %a")<CR>
@@ -283,7 +288,6 @@ autocmd FileType python map <F5> :w<CR>:!python "%"<CR>
 "map <C-S-n> gT
 " tab right
 "map <C-S-i> gt
-map <C-TAB> gt
 
 
 " load pydict file for autocompletion
