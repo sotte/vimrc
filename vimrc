@@ -86,11 +86,13 @@ set wildmenu                    " Make tab completion for files/buffers act like
                                 " first full match
 set wildmode=longest,list       " GRB: use emacs-style tab completion when selecting files, etc
 set title                       " change the terminal's title
-set visualbell                  " don't beep
+set novisualbell                " no visual flash on error
 set noerrorbells                " don't beep
 set ruler                       " show the cursor position all the time
 set showcmd                     " show (partial) command in the last line of the screen
                                 " this also shows visual selection info
+set autoread                    " automatically update the buffer if file got
+                                " updated in the meantime: see :help W11
 
 
 
@@ -149,8 +151,6 @@ if has("gui_running")
 endif 
 
 
-" save on losing focus
-au FocusLost * :wa
 
 
 " activate proto syntax hl
@@ -159,9 +159,19 @@ augroup filetype
 augroup end
 
 
-" Source the vimrc file after saving it
 if has("autocmd")
+  " save on losing focus
+  au FocusLost * :wa
+
+  " Source the vimrc file after saving it
   autocmd bufwritepost .vimrc source $MYVIMRC
+  
+  " rm trailing whitesprce for python files
+  " http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
+  autocmd BufWritePre *.py :%s/\s\+$//e
+
+  " highlight variable under cursor (not smart)
+  au BufRead,BufNewFile *.py,*.pyw,*.c  autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
 endif
 
 
@@ -169,8 +179,6 @@ endif
 let python_highlight_all = 1
 
 
-" highlight variable under cursor (not smart)
-au BufRead,BufNewFile *.py,*.pyw,*.c  autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
 
 
 " different color for autocomplete menu
