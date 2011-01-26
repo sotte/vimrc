@@ -227,8 +227,8 @@ map <C-TAB> :A <CR>
 
 
 " Insert Date 
-nmap <leader>st a<C-R>=strftime("%Y-%m-%d %a")<CR><Esc>
-imap ,st <C-R>=strftime("%Y-%m-%d %a")<CR>
+nmap <leader>st a<C-R>=strftime("%a %d-%m-%Y")<CR><Esc>
+imap ,st <C-R>=strftime("%a %d-%m-%Y")<CR>
 
 
 " Don't use Ex mode, use Q for formatting
@@ -327,7 +327,7 @@ command! -nargs=* Wrap set wrap linebreak nolist textwidth=0
 " Ack
 """"""""""""""""""""
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-:nnoremap <leader>a :Ack 
+:nnoremap <leader>a :LAck 
 
 
 """"""""""""""""""""
