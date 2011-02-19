@@ -26,7 +26,7 @@ set number                      " always show line numbers
 if has("gui_running")
   " GUI is running or is about to start.
   " Maximize gvim window.
-  set lines=44 columns=84
+  "set lines=44 columns=84
 endif
 
 
