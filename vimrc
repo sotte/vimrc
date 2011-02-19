@@ -187,8 +187,8 @@ highlight Pmenu ctermfg=1 ctermbg=4 guibg=grey30
 
 " Command-T options
 let g:CommandTMaxFiles=2000
-let g:CommandTMaxHeight=15
-let g:CommandTMatchWindowAtTop=1
+let g:CommandTMaxHeight=20
+let g:CommandTMatchWindowAtTop=0
 set wildignore+=*.o,*.obj,*.pyc
 
 
@@ -289,6 +289,10 @@ nnoremap <C-i> <C-w>l
 
 " Start python on F5
 autocmd FileType python map <F5> :w<CR>:!python "%"<CR>
+
+
+" ConqueTerm
+nmap <leader>z :ConqueTerm zsh <CR>
 
 
 " tab navigation 
