@@ -45,7 +45,7 @@ set listchars=tab:▸\ ,eol:¬
 set tabstop=4                   " a tab is four spaces
 set shiftwidth=4                " number of spaces to use for autoindenting
 set softtabstop=4
-set expandtab                   " use whitspace instaed of tab
+set noexpandtab                   " use whitspace instaed of tab
 
 set backspace=indent,eol,start  " allow backspacing over everything in insert mode
 set smarttab
@@ -169,6 +169,7 @@ if has("autocmd")
   " rm trailing whitesprce for python files
   " http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
   autocmd BufWritePre *.py :%s/\s\+$//e
+  autocmd FileType python set expandtab
 
   " highlight variable under cursor (not smart)
   au BufRead,BufNewFile *.py,*.pyw,*.c  autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
@@ -333,6 +334,11 @@ command! -nargs=* Wrap set wrap linebreak nolist textwidth=0
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 :nnoremap <leader>a :LAck 
 
+
+""""""""""""""""""""
+" NERDTree
+""""""""""""""""""""
+:nnoremap <leader>n :NERDTreeToggle<CR>
 
 """"""""""""""""""""
 " git fugitive
