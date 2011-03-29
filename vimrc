@@ -82,9 +82,9 @@ set nobackup                    " do not keep backup files, it's 70's style clut
 set noswapfile                  " do not write annoying intermediate swap files,
                                 " who did ever restore from swap files anyway?
 set wildmenu                    " Make tab completion for files/buffers act like bash
-"set wildmode=list:full          " show a list when pressing tab and complete
+set wildmode=list:full          " show a list when pressing tab and complete
                                 " first full match
-set wildmode=longest,list       " GRB: use emacs-style tab completion when selecting files, etc
+"set wildmode=longest,list       " GRB: use emacs-style tab completion when selecting files, etc
 set title                       " change the terminal's title
 set novisualbell                " no visual flash on error
 set noerrorbells                " don't beep
@@ -205,6 +205,14 @@ set tags=tags;/
 let Tlist_WinWidth = 40
 let Tlist_Use_Right_Window = 1
 map <F4> :TlistToggle<cr>
+
+
+" supertab
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabLongestEnhanced = 1
+let g:SuperTabLongestHighlight = 1
+let g:SuperTabMappingForward = '<c-space>'
+let g:SuperTabMappingBackward = '<s-c-space>'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
