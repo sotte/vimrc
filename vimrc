@@ -166,6 +166,12 @@ if has("autocmd")
   " Source the vimrc file after saving it
   autocmd bufwritepost .vimrc source $MYVIMRC
   
+  " rm trailing whitesprce for c files
+  " http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
+  autocmd BufWritePre *.c :%s/\s\+$//e
+  autocmd BufWritePre *.cpp :%s/\s\+$//e
+  autocmd BufWritePre *.h :%s/\s\+$//e
+
   " rm trailing whitesprce for python files
   " http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
   autocmd BufWritePre *.py :%s/\s\+$//e
