@@ -58,3 +58,6 @@
 [submodule "bundle/bufexplorer"]
 	path = bundle/bufexplorer
 	url = https://github.com/vim-scripts/bufexplorer.zip.git
+[submodule "bundle/vim-xabsl"]
+	path = bundle/vim-xabsl
+	url = git@github.com:sotte/vim-xabsl.git
