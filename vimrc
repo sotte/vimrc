@@ -243,9 +243,12 @@ map <C-TAB> :A <CR>
 
 
 " Insert Date 
-nmap <leader>st a<C-R>=strftime("%a %d-%m-%Y")<CR><Esc>
+nmap <leader>st a<C-R>=strftime("%d-%m-%Y %a ")<CR><Esc>
 imap ,st <C-R>=strftime("%a %d-%m-%Y")<CR>
 
+
+" orgmode
+nmap <leader>wo :tabedit ~/org/index.org<CR>
 
 " Don't use Ex mode, use Q for formatting
 "map Q gq
@@ -355,6 +358,7 @@ let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 """"""""""""""""""""
 :nnoremap <leader>n :NERDTreeToggle<CR>
 
+
 """"""""""""""""""""
 " git fugitive
 """"""""""""""""""""
@@ -362,6 +366,25 @@ let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 :nnoremap <leader>gd :Gdiff<CR>
 :nnoremap <leader>gw :Gwrite<CR>
 :nnoremap <leader>gc :Gcommit<CR>
+
+
+
+""""""""""""""""""""
+" tabular
+""""""""""""""""""""
+" see vimcasts.org
+inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
+ 
+function! s:align()
+  let p = '^\s*|\s.*\s|\s*$'
+  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
+    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
+    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
+    Tabularize/|/l1
+    normal! 0
+    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
+  endif
+endfunction
 
 
 """"""""""""""""""""""""
