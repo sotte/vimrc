@@ -209,11 +209,11 @@ map <F4> :TlistToggle<cr>
 
 
 " supertab
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabLongestEnhanced = 1
-let g:SuperTabLongestHighlight = 1
-let g:SuperTabMappingForward = '<c-space>'
-let g:SuperTabMappingBackward = '<s-c-space>'
+"let g:SuperTabDefaultCompletionType = "context"
+"let g:SuperTabLongestEnhanced = 1
+"let g:SuperTabLongestHighlight = 1
+"let g:SuperTabMappingForward = '<c-space>'
+"let g:SuperTabMappingBackward = '<s-c-space>'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

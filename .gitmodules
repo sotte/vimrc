@@ -64,9 +64,6 @@
 [submodule "bundle/utl"]
 	path = bundle/utl
 	url = https://github.com/vim-scripts/utl.vim.git
-[submodule "bundle/supertab"]
-	path = bundle/supertab
-	url = https://github.com/ervandew/supertab.git
 [submodule "bundle/solarized-theme"]
 	path = bundle/solarized-theme
 	url = git://github.com/altercation/vim-colors-solarized.git
