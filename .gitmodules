@@ -73,3 +73,6 @@
 [submodule "bundle/rope-vim"]
 	path = bundle/rope-vim
 	url = https://github.com/klen/rope-vim.git
+[submodule "bundle/surround"]
+	path = bundle/surround
+	url = https://github.com/tpope/vim-surround.git
