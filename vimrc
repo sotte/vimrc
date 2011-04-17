@@ -185,7 +185,8 @@ endif
 " better python highlighting - see syntax/python.vim for more details
 let python_highlight_all = 1
 
-
+" Set this option in your vimrc file to disable quickfix support::
+let g:pyflakes_use_quickfix = 0
 
 
 " different color for autocomplete menu
@@ -243,8 +244,8 @@ map <C-TAB> :A <CR>
 
 
 " Insert Date 
-nmap <leader>st a<C-R>=strftime("%d-%m-%Y %a ")<CR><Esc>
-imap ,st <C-R>=strftime("%a %d-%m-%Y")<CR>
+nmap <leader>st a<C-R>=strftime("<%Y-%m-%d %a>")<CR><Esc>
+imap ,st <C-R>=strftime("<%Y-%m-%d %a>")<CR>
 
 
 " orgmode
