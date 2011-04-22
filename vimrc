@@ -94,6 +94,8 @@ set showcmd                     " show (partial) command in the last line of the
 set autoread                    " automatically update the buffer if file got
                                 " updated in the meantime: see :help W11
 
+" Enabling copy and paste between vim instances 
+set clipboard=unnamed
 
 
 " Store temporary files in a central spot
