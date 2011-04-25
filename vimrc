@@ -183,6 +183,11 @@ if has("autocmd")
   au BufRead,BufNewFile *.py,*.pyw,*.c  autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
 endif
 
+" Octave Syntax
+augroup filetypedetect
+  au! BufRead,BufNewFile *.m,*.oct setfiletype octave
+augroup END
+
 
 " better python highlighting - see syntax/python.vim for more details
 let python_highlight_all = 1
