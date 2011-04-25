@@ -251,7 +251,7 @@ imap ,st <C-R>=strftime("<%Y-%m-%d %a>")<CR>
 
 
 " orgmode
-nmap <leader>wo :tabedit ~/org/index.org<CR>
+nmap <leader>wo :e ~/org/index.org<CR>
 
 " Don't use Ex mode, use Q for formatting
 "map Q gq
