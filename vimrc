@@ -1,4 +1,8 @@
 " pathogen
+filetype on
+filetype plugin on
+filetype indent on
+
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
@@ -40,7 +44,6 @@ set linebreak
 set list
 set listchars=tab:▸\ ,eol:¬
 
-
 " tabs and whitespaces
 set tabstop=4                   " a tab is four spaces
 set shiftwidth=4                " number of spaces to use for autoindenting
@@ -55,7 +58,7 @@ set scrolloff=4                 " keep 4 lines off the edges of the screen when 
 set ttyfast
                                 " set autoindent
 "set virtualedit=all             " allow the cursor to go in to "invalid" places
- set cursorline                  " highlight current line
+set cursorline                  " highlight current line
 
 
 " === search and replace ===
@@ -257,6 +260,8 @@ imap ,st <C-R>=strftime("<%Y-%m-%d %a>")<CR>
 
 " orgmode
 nmap <leader>wo :e ~/org/index.org<CR>
+let g:org_todo_keywords = ['TODO', '|', 'DONE']
+let g:org_todo_keyword_faces = [['TODO', [':foreground red', ':weight bold']], ['DONE', [':foreground green', ':weight bold']]]
 
 " Don't use Ex mode, use Q for formatting
 "map Q gq
@@ -284,7 +289,7 @@ nnoremap <Leader>sr :%s/\<<C-r><C-w>\>/
 
 
 " change working dir to file
-map ,cd :cd %:p:h<CR>
+map <leader>cd :cd %:p:h<CR>
 
 
 " use regular regex (not vim style) for search
@@ -400,6 +405,12 @@ endfunction
 """"""""""""""""""""""""
 " need to source this file -- http://code.google.com/p/snipmate/issues/detail?id=66
 source ~/.vim/bundle/snipmate/after/plugin/snipMate.vim
+
+
+"""""""""""""""""""""""""
+"   vim-easymotion      "
+"""""""""""""""""""""""""
+let g:EasyMotion_leader_key = '<Leader>m'
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

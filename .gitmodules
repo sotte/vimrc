@@ -79,3 +79,12 @@
 [submodule "bundle/octave.vim--castro"]
 	path = bundle/octave.vim--castro
 	url = https://github.com/vim-scripts/octave.vim--Castro.git
+[submodule "bundle/gist-vim"]
+	path = bundle/gist-vim
+	url = https://github.com/vim-scripts/Gist.vim.git
+[submodule "bundle/R-syntax-highlighting"]
+	path = bundle/R-syntax-highlighting
+	url = https://github.com/vim-scripts/R-syntax-highlighting.git
+[submodule "bundle/vim-easymotion"]
+	path = bundle/vim-easymotion
+	url = https://github.com/Lokaltog/vim-easymotion.git
