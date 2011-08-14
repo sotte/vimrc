@@ -88,3 +88,6 @@
 [submodule "bundle/solarized_colorscheme"]
 	path = bundle/solarized_colorscheme
 	url = https://github.com/altercation/vim-colors-solarized.git
+[submodule "bundle/latex-suite"]
+	path = bundle/latex-suite
+	url = https://github.com/gerw/vim-latex-suite.git
