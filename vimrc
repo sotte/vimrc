@@ -1,7 +1,7 @@
 " pathogen
-filetype on
-filetype plugin on
-filetype indent on
+filetype off
+filetype plugin off
+filetype indent off
 
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
@@ -12,7 +12,9 @@ call pathogen#helptags()
 " git add .
 " git commit
 "
-
+"""""""""""""""""""
+" General settings
+"""""""""""""""""""
 set nocompatible
 colorscheme molokai
 
@@ -28,9 +30,8 @@ set number                      " always show line numbers
 
 
 if has("gui_running")
-  " GUI is running or is about to start.
-  " Maximize gvim window.
-  "set lines=44 columns=84
+  colorscheme molokai
+  set guifont=Monospace\ 9
 endif
 
 
