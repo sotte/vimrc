@@ -30,12 +30,6 @@ set encoding=utf-8              " use UTF-8 encoding
 set number                      " always show line numbers
 
 
-if has("gui_running")
-  colorscheme molokai
-  set guifont=Monospace\ 9
-endif
-
-
 " formating options for text
 " see http://vimcasts.org/episodes/hard-wrapping-text/ for more infos
 set formatoptions=qrn1
@@ -108,13 +102,26 @@ set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 " }}}
 
 
-" hide the toolbar in GUI mode
+""""""""""""""""""""
+"   GUI settings
+""""""""""""""""""""
 if has("gui_running")
+    " set color scheme and font
+    colorscheme molokai
+    set guifont=Monospace\ 9
+
+
+    " higlight misspeled python stuff differently
+    highlight SpellBad term=underline gui=undercurl guisp=Orange 
+    
+
+    " hide the toolbar in GUI mode
     set go-=T
     " Don't show scroll bars in the GUI
     set guioptions-=L
     set guioptions-=r
 end
+
 
 " higligt mode
 hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
@@ -145,14 +152,8 @@ set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)
 set cmdheight=2
 
 
-" higlight misspeled python stuff
-if has("gui_running") 
-    highlight SpellBad term=underline gui=undercurl guisp=Orange 
-endif 
-
 " different color for autocomplete menu
 highlight Pmenu ctermfg=1 ctermbg=4 guibg=grey30
-
 
 
 " activate proto syntax hl
