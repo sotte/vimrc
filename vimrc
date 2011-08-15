@@ -27,7 +27,8 @@ filetype indent on
 syntax on
 
 set encoding=utf-8              " use UTF-8 encoding
-set number                      " always show line numbers
+"set number                      " always show line numbers
+set relativenumber              " show relativ line numbers
 
 
 " formating options for text
@@ -48,8 +49,9 @@ set noexpandtab                 " use whitspace instaed of tab
 
 set backspace=indent,eol,start  " allow backspacing over everything in insert mode
 set smarttab
-                                " if there is only one window
-set scrolloff=4                 " keep 4 lines off the edges of the screen when scrolling
+" try to ceep the cursor in the middle of the screen
+" http://vim.wikia.com/wiki/Keep_your_cursor_centered_vertically_on_the_screen
+set scrolloff=999               
 
 set ttyfast
 set cursorline                  " highlight current line
