@@ -1,4 +1,6 @@
-" pathogen
+""""""""""""""""""""
+"    pathogen
+""""""""""""""""""""
 filetype off
 filetype plugin off
 filetype indent off
@@ -12,9 +14,9 @@ call pathogen#helptags()
 " git add .
 " git commit
 "
-"""""""""""""""""""
+""""""""""""""""""""
 " General settings
-"""""""""""""""""""
+""""""""""""""""""""
 set nocompatible
 colorscheme molokai
 
@@ -22,7 +24,6 @@ colorscheme molokai
 filetype on
 filetype plugin on
 filetype indent on
-"set modelines=0
 syntax on
 
 set encoding=utf-8              " use UTF-8 encoding
@@ -49,7 +50,7 @@ set listchars=tab:▸\ ,eol:¬
 set tabstop=4                   " a tab is four spaces
 set shiftwidth=4                " number of spaces to use for autoindenting
 set softtabstop=4
-set noexpandtab                   " use whitspace instaed of tab
+set noexpandtab                 " use whitspace instaed of tab
 
 set backspace=indent,eol,start  " allow backspacing over everything in insert mode
 set smarttab
@@ -57,8 +58,6 @@ set smarttab
 set scrolloff=4                 " keep 4 lines off the edges of the screen when scrolling
 
 set ttyfast
-                                " set autoindent
-"set virtualedit=all             " allow the cursor to go in to "invalid" places
 set cursorline                  " highlight current line
 
 
@@ -70,12 +69,13 @@ set ignorecase                  " Make searches case-sensitive only if they cont
 set smartcase
 set gdefault                    " gdefault applies substitutions globally on lines
 
-" set foldmethod=indent
-set mouse=a " enable using the mouse if terminal emulator
+set foldmethod=indent
+set mouse=a                     " enable using the mouse if terminal emulator
 
 " global undo file
-set undofile        " use global undo
-set undodir=~/tmp   " this folder for global undo
+set undofile                    " use global undo
+set undodir=~/.vim/undo         " this folder for global undo
+
 " }}}
 
 " Vim behaviour {{{
@@ -116,16 +116,12 @@ if has("gui_running")
     set guioptions-=r
 end
 
+" higligt mode
+hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
 
-" avoid error msg that have to do with fish shell
-if $SHELL =~ 'bin/fish'
-    set shell=/bin/sh
-endif
-
-
-" ==========
+""""""""""""""""""""
 " statusline
-" ==========
+""""""""""""""""""""
 set laststatus=2                " tell VIM to always put a status line in, even
 " cf the default statusline: %<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 " format markers:
@@ -145,8 +141,6 @@ set laststatus=2                " tell VIM to always put a status line in, even
 "   %) end of width specification
 set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)
 
-" higligt mode
-hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
 " Number of screen lines to use for the command-line
 set cmdheight=2
 
@@ -156,6 +150,8 @@ if has("gui_running")
     highlight SpellBad term=underline gui=undercurl guisp=Orange 
 endif 
 
+" different color for autocomplete menu
+highlight Pmenu ctermfg=1 ctermbg=4 guibg=grey30
 
 
 
@@ -166,7 +162,7 @@ augroup end
 
 
 if has("autocmd")
-  " save on losing focus
+  " auto save on losing focus
   au FocusLost * :wa
 
   " Source the vimrc file after saving it
@@ -187,50 +183,22 @@ if has("autocmd")
   au BufRead,BufNewFile *.py,*.pyw,*.c  autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
 endif
 
+
 " Octave Syntax
 augroup filetypedetect
   au! BufRead,BufNewFile *.m,*.oct setfiletype octave
 augroup END
 
 
-" better python highlighting - see syntax/python.vim for more details
-let python_highlight_all = 1
-
-" Set this option in your vimrc file to disable quickfix support::
-let g:pyflakes_use_quickfix = 0
-
-
-" different color for autocomplete menu
-highlight Pmenu ctermfg=1 ctermbg=4 guibg=grey30
+" Soft wrapping text
+" http://vimcasts.org/episodes/soft-wrapping-text/
+" simply enter :Wrap
+command! -nargs=* Wrap set wrap linebreak nolist textwidth=0
 
 
-" Command-T options
-let g:CommandTMaxFiles=2000
-let g:CommandTMaxHeight=20
-let g:CommandTMatchWindowAtTop=0
-set wildignore+=*.o,*.obj,*.pyc
-
-
-" ctags and tag list 
-let Tlist_Ctags_Cmd = "/usr/bin/ctags"
-"set tags=./tags,./../tags,./../../tags,./../../../tags,tags
-
-let Tlist_WinWidth = 40
-let Tlist_Use_Right_Window = 1
-map <F4> :TlistToggle<cr>
-
-
-" supertab
-"let g:SuperTabDefaultCompletionType = "context"
-"let g:SuperTabLongestEnhanced = 1
-"let g:SuperTabLongestHighlight = 1
-"let g:SuperTabMappingForward = '<c-space>'
-"let g:SuperTabMappingBackward = '<s-c-space>'
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "   Mappings -- Shortcut mappings {{{
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " remap leader
 let mapleader=","
@@ -244,25 +212,10 @@ inoremap ii <ESC>
 nnoremap <leader><space> :nohlsearch<CR>
 
 
-" === jump to matching bracket with tab ===
-nnoremap <tab> %
-vnoremap <tab> %
-
-
-" a.vim
-" switch between .h and .cpp
-map <C-TAB> :A <CR>
-
-
 " Insert Date 
 nmap <leader>st a<C-R>=strftime("<%Y-%m-%d %a>")<CR><Esc>
 imap ,st <C-R>=strftime("<%Y-%m-%d %a>")<CR>
 
-
-" orgmode
-nmap <leader>wo :e ~/org/index.org<CR>
-let g:org_todo_keywords = ['TODO', '|', 'DONE']
-let g:org_todo_keyword_faces = [['TODO', [':foreground red', ':weight bold']], ['DONE', [':foreground green', ':weight bold']]]
 
 " Don't use Ex mode, use Q for formatting
 "map Q gq
@@ -324,40 +277,53 @@ nnoremap <C-i> <C-w>l
 autocmd FileType python map <F5> :w<CR>:!python "%"<CR>
 
 
-" ConqueTerm
+" nicer cursor movements:
+" use visible lines instead of real lines for cursor movement
+" NOTE: " due to the fact that I use colemak I have mapped AltGr+(n|e|i|u)
+" to cursormovements.
+map <up> gk
+map <down> gj
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                              PLUGIN SETTINGS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""
+"  python syntax
+""""""""""""""""""""
+" better python highlighting - see syntax/python.vim for more details
+let python_highlight_all = 1
+
+
+""""""""""""""""""""
+"    PyFlakes
+""""""""""""""""""""
+" Set this option in your vimrc file to disable quickfix support for pyflakes
+let g:pyflakes_use_quickfix = 0
+
+
+
+""""""""""""""""""""
+"    ConqueTerm
+""""""""""""""""""""
 nmap <leader>z :ConqueTerm zsh <CR>
 
 
-" tab navigation 
-" tab left
-"map <C-S-n> gT
-" tab right
-"map <C-S-i> gt
+""""""""""""""""""""
+"     OrgMode
+""""""""""""""""""""
+nmap <leader>wo :e ~/org/index.org<CR>
+let g:org_todo_keywords = ['TODO', '|', 'DONE']
+let g:org_todo_keyword_faces = [['TODO', [':foreground red', ':weight bold']], ['DONE', [':foreground green', ':weight bold']]]
 
 
-" load pydict file for autocompletion
-" MUST be the absolute path!!!
-"let g:pydiction_location = '/Users/otte/.vim/ftplugin/pydiction/complete-dict'
-
-
-" nicer cursor movements
-" due to the fact that I use colemak
-" -----------------------------------
-" use visible lines instead of real lines
-
-" Use the damn hjkl keys
-" I have mapped AltGr+(n|e|i|u) to movements.
-map <up> gk
-map <down> gj
-" map <left> <nop>
-" map <right> <nop>
-
-
-
-" Soft wrapping text
-" http://vimcasts.org/episodes/soft-wrapping-text/
-" simply enter :Wrap
-command! -nargs=* Wrap set wrap linebreak nolist textwidth=0
+""""""""""""""""""""
+" a.vim
+""""""""""""""""""""
+" switch between .h and .cpp
+map <C-TAB> :A <CR>
 
 
 """"""""""""""""""""
@@ -382,7 +348,6 @@ let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 :nnoremap <leader>gc :Gcommit<CR>
 
 
-
 """"""""""""""""""""
 " tabular
 """"""""""""""""""""
@@ -405,6 +370,7 @@ endfunction
 " SnipMate
 """"""""""""""""""""""""
 " need to source this file -- http://code.google.com/p/snipmate/issues/detail?id=66
+" Why?
 source ~/.vim/bundle/snipmate/after/plugin/snipMate.vim
 
 
@@ -414,10 +380,29 @@ source ~/.vim/bundle/snipmate/after/plugin/snipMate.vim
 let g:EasyMotion_leader_key = '<Leader>m'
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                             Latex
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" IMPORTANT: grep will sometimes skip displaying the file name if you
+"""""""""""""""""""""""""
+" Command-T options
+"""""""""""""""""""""""""
+let g:CommandTMaxFiles=2000
+let g:CommandTMaxHeight=20
+let g:CommandTMatchWindowAtTop=0
+set wildignore+=*.o,*.obj,*.pyc
+
+
+"""""""""""""""""""""""""
+" ctags and tag list 
+"""""""""""""""""""""""""
+let Tlist_Ctags_Cmd = "/usr/bin/ctags"
+"set tags=./tags,./../tags,./../../tags,./../../../tags,tags
+let Tlist_WinWidth = 40
+let Tlist_Use_Right_Window = 1
+map <F4> :TlistToggle<cr>
+
+
+"""""""""""""""""""""""""
+"         Latex
+"""""""""""""""""""""""""
+" important: grep will sometimes skip displaying the file name if you
 " search in a singe file. This will confuse Latex-Suite. Set your grep
 " program to always generate a file-name.
 set grepprg=grep\ -nH\ $*
@@ -432,26 +417,3 @@ let g:Tex_CompileRule_pdf = 'xelatex -interaction=nonstopmode $*'
 let g:Tex_DefaultTargetFormat = 'pdf'
 "let g:Tex_ViewRule_pdf = 'evince'
 let g:Tex_MultipleCompileFormats = 'pdf'
-
-""""""""""""""""""""""""""""""""""""
-" vimwiki binding
-""""""""""""""""""""""""""""""""""""
-" list all open tasks in quickfix window
-:nnoremap <leader>jl :vimgrep /\v^* \[ \] /gj ~/vimwiki/*.wiki <CR> :cope <CR>
-
-" list open tasks with TODAY tag
-:nnoremap <leader>jt :vimgrep /\v^* \[ \] .*TODAY/gj ~/vimwiki/*.wiki <CR> :cope <CR>
-
-" mark job as TODAY
-" - need to be in quickfix window;
-" - jump to entry;
-" - append TODAY at the end of the line;
-" - jump back to quickfix window (qf not updated) but same position
-:nnoremap <leader>jj <CR> A TODAY<esc>:w<CR> :cope<CR>
-
-" mark job as done: 
-" - need to be in quickfix window;
-" - jump to entry;
-" - mark as done;
-" - jump back to quickfix window (qf not updated) but same position
-:nnoremap <leader>jd <CR> :VimwikiToggleListItem<CR>:w<CR>:cope<CR>
