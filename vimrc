@@ -385,6 +385,16 @@ map <F4> :TlistToggle<cr>
 
 
 """""""""""""""""""""""""
+"     indent guides
+"""""""""""""""""""""""""
+" see :help indent_guides
+let g:indent_guides_color_change_percent = 4
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 2
+let g:indent_guides_enable_on_vim_startup = 1
+
+
+"""""""""""""""""""""""""
 "         Latex
 """""""""""""""""""""""""
 " important: grep will sometimes skip displaying the file name if you
