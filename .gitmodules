@@ -88,3 +88,6 @@
 [submodule "bundle/latex-suite"]
 	path = bundle/latex-suite
 	url = https://github.com/gerw/vim-latex-suite.git
+[submodule "bundle/conceal-cute-python"]
+	path = bundle/conceal-cute-python
+	url = https://github.com/ehamberg/vim-cute-python.git
