@@ -164,7 +164,7 @@ augroup end
 
 if has("autocmd")
   " auto save on losing focus
-  au FocusLost * :wa
+  autocmd FocusLost * :wa
 
   " Source the vimrc file after saving it
   autocmd bufwritepost .vimrc source $MYVIMRC
@@ -181,13 +181,13 @@ if has("autocmd")
   autocmd FileType python set expandtab
 
   " highlight variable under cursor (not smart)
-  au BufRead,BufNewFile *.py,*.pyw,*.c  autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
+  autocmd BufRead,BufNewFile *.py,*.pyw,*.c  autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
 endif
 
 
 " Octave Syntax
 augroup filetypedetect
-  au! BufRead,BufNewFile *.m,*.oct setfiletype octave
+  autocmd! BufRead,BufNewFile *.m,*.oct setfiletype octave
 augroup END
 
 
