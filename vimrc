@@ -27,8 +27,8 @@ filetype indent on
 syntax on
 
 set encoding=utf-8              " use UTF-8 encoding
-"set number                      " always show line numbers
-set relativenumber              " show relativ line numbers
+set number                      " always show line numbers
+"set relativenumber              " show relativ line numbers
 
 
 " formating options for text
