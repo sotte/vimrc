@@ -181,9 +181,10 @@ if has("autocmd")
   " http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
   autocmd BufWritePre *.py :%s/\s\+$//e
   autocmd FileType python set expandtab
+  autocmd BufNewFile,BufRead *.py compiler nose
 
   " highlight variable under cursor (not smart)
-  autocmd BufRead,BufNewFile *.py,*.pyw,*.c  autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
+  "autocmd BufRead,BufNewFile *.py,*.pyw,*.c  autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
 endif
 
 
@@ -278,6 +279,7 @@ nnoremap <C-i> <C-w>l
 
 " Start python on F5
 autocmd FileType python map <F5> :w<CR>:!python "%"<CR>
+map <F5> :make<CR>
 
 
 " nicer cursor movements:
@@ -412,3 +414,10 @@ let g:Tex_CompileRule_pdf = 'xelatex -interaction=nonstopmode $*'
 let g:Tex_DefaultTargetFormat = 'pdf'
 "let g:Tex_ViewRule_pdf = 'evince'
 let g:Tex_MultipleCompileFormats = 'pdf'
+
+
+"""""""""""""""""""""""""""""""""""""
+" TMP
+"""""""""""""""""""""""""""""""""""""
+"let g:org_activate_intert_mode_mappings="1"
+let g:org_agenda_files="~/org/index.org"
