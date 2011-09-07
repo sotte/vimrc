@@ -103,3 +103,6 @@
 [submodule "bundle/snipmate-snippets"]
 	path = bundle/snipmate-snippets
 	url = https://github.com/honza/snipmate-snippets.git
+[submodule "bundle/threesome"]
+	path = bundle/threesome
+	url = https://github.com/sjl/threesome.vim.git
