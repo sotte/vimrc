@@ -420,4 +420,5 @@ let g:Tex_MultipleCompileFormats = 'pdf'
 " TMP
 """""""""""""""""""""""""""""""""""""
 "let g:org_activate_intert_mode_mappings="1"
-let g:org_agenda_files="~/org/index.org"
+let g:org_agenda_files=['~/org/index.org', '~/org/TodaY.org', '~/org/EUBShopFelix.org', '~/org/vim-orgmode.org', '~/org/MachineLearning.org', '~/org/DataMining.org']
+
