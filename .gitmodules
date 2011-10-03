@@ -106,3 +106,6 @@
 [submodule "bundle/threesome"]
 	path = bundle/threesome
 	url = https://github.com/sjl/threesome.vim.git
+[submodule "bundle/vim-colors-solarized"]
+	path = bundle/vim-colors-solarized
+	url = git://github.com/altercation/vim-colors-solarized.git
