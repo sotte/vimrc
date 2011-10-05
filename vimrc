@@ -206,6 +206,7 @@ command! -nargs=* Wrap set wrap linebreak nolist textwidth=0
 
 " remap leader
 let mapleader=","
+let maplocalleader = ","
 
 
 " additional esc with ii
