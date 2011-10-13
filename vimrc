@@ -166,6 +166,11 @@ augroup filetype
     autocmd! BufRead,BufNewFile *.cpp set syntax=cpp.doxygen
     autocmd! BufRead,BufNewFile *.c set syntax=cpp.doxygen
     autocmd! BufRead,BufNewFile *.h set syntax=cpp.doxygen
+
+    " set colorcolumn for cpp higher than normaly
+    autocmd! BufRead,BufNewFile *.cpp setlocal colorcolumn=100
+    autocmd! BufRead,BufNewFile *.c setlocal colorcolumn=100
+    autocmd! BufRead,BufNewFile *.h setlocal colorcolumn=100
 augroup end
 
 
@@ -388,7 +393,7 @@ let Tlist_Ctags_Cmd = "/usr/bin/ctags"
 "set tags=./tags,./../tags,./../../tags,./../../../tags,tags
 let Tlist_WinWidth = 40
 let Tlist_Use_Right_Window = 1
-map <F4> :TlistToggle<cr>
+map <F4> :TagbarOpenAutoClose<cr>
 
 
 """""""""""""""""""""""""
