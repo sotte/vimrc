@@ -176,10 +176,9 @@ if has("autocmd")
   autocmd BufWritePre *.c :%s/\s\+$//e
   autocmd BufWritePre *.cpp :%s/\s\+$//e
   autocmd BufWritePre *.h :%s/\s\+$//e
-
-  " rm trailing whitesprce for python files
-  " http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
   autocmd BufWritePre *.py :%s/\s\+$//e
+
+  " Python stuff
   autocmd FileType python set expandtab
   autocmd BufNewFile,BufRead *.py compiler nose
 
