@@ -158,9 +158,14 @@ set cmdheight=2
 highlight Pmenu ctermfg=1 ctermbg=4 guibg=grey30
 
 
-" activate proto syntax hl
 augroup filetype
-    au! BufRead,BufNewFile *.proto setfiletype proto
+    " activate proto syntax hl
+    autocmd! BufRead,BufNewFile *.proto setfiletype proto
+
+    " activate cpp and doxygen syntax for *.c and *.cpp files
+    autocmd! BufRead,BufNewFile *.cpp set syntax=cpp.doxygen
+    autocmd! BufRead,BufNewFile *.c set syntax=cpp.doxygen
+    autocmd! BufRead,BufNewFile *.h set syntax=cpp.doxygen
 augroup end
 
 
