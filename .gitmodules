@@ -112,3 +112,6 @@
 [submodule "bundle/vimroom"]
 	path = bundle/vimroom
 	url = https://github.com/mikewest/vimroom.git
+[submodule "bundle/doxygentoolkit"]
+	path = bundle/doxygentoolkit
+	url = https://github.com/vim-scripts/DoxygenToolkit.vim.git
