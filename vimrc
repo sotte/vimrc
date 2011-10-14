@@ -128,6 +128,7 @@ end
 " higligt mode
 hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
 
+
 """"""""""""""""""""
 " statusline
 """"""""""""""""""""
@@ -150,6 +151,7 @@ set laststatus=2                " tell VIM to always put a status line in, even
 "   %) end of width specification
 set statusline=%<\ %n:%f\ %m%r%y%=%-35.(line:\ %l\ of\ %L,\ col:\ %c%V\ (%P)%)
 
+
 " Number of screen lines to use for the command-line
 set cmdheight=2
 
@@ -158,23 +160,15 @@ set cmdheight=2
 highlight Pmenu ctermfg=1 ctermbg=4 guibg=grey30
 
 
-augroup filetype
-    " activate proto syntax hl
-    autocmd! BufRead,BufNewFile *.proto setfiletype proto
-
-    " activate cpp and doxygen syntax for *.c and *.cpp files
-    autocmd! BufRead,BufNewFile *.cpp set syntax=cpp.doxygen
-    autocmd! BufRead,BufNewFile *.c set syntax=cpp.doxygen
-    autocmd! BufRead,BufNewFile *.h set syntax=cpp.doxygen
-
-    " set colorcolumn for cpp higher than normaly
-    autocmd! BufRead,BufNewFile *.cpp setlocal colorcolumn=100
-    autocmd! BufRead,BufNewFile *.c setlocal colorcolumn=100
-    autocmd! BufRead,BufNewFile *.h setlocal colorcolumn=100
-augroup end
-
-
 if has("autocmd")
+  " activate proto syntax hl
+  autocmd! BufRead,BufNewFile *.proto setfiletype proto
+
+  " set colorcolumn for cpp higher than normaly
+  autocmd! BufRead,BufNewFile *.cpp setlocal colorcolumn=100
+  autocmd! BufRead,BufNewFile *.c setlocal colorcolumn=100
+  autocmd! BufRead,BufNewFile *.h setlocal colorcolumn=100
+
   " auto save on losing focus
   autocmd FocusLost * :wa
 
@@ -194,6 +188,12 @@ if has("autocmd")
 
   " highlight variable under cursor (not smart)
   "autocmd BufRead,BufNewFile *.py,*.pyw,*.c  autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
+
+  " activate cpp and doxygen syntax for *.c and *.cpp files
+  autocmd BufRead,BufNewFile *.cpp set syntax=cpp.doxygen
+  autocmd BufRead,BufNewFile *.c set syntax=cpp.doxygen
+  autocmd BufRead,BufNewFile *.h set syntax=cpp.doxygen
+
 endif
 
 
