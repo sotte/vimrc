@@ -390,9 +390,8 @@ set wildignore+=*.o,*.obj,*.pyc
 " ctags and tag list 
 """""""""""""""""""""""""
 let Tlist_Ctags_Cmd = "/usr/bin/ctags"
-"set tags=./tags,./../tags,./../../tags,./../../../tags,tags
-let Tlist_WinWidth = 40
-let Tlist_Use_Right_Window = 1
+"set tags=/tags,./../tags,./../../tags,./../../../tags,tags
+set tags=./tags;
 map <F4> :TagbarOpenAutoClose<cr>
 
 
