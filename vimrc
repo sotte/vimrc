@@ -116,12 +116,15 @@ if has("gui_running")
     " higlight misspeled python stuff differently
     highlight SpellBad term=underline gui=undercurl guisp=Orange 
     
-
+    " gvim: do not use gvim gui
+	"set guioptions=
     " hide the toolbar in GUI mode
-    set go-=T
+    set guioptions-=T
     " Don't show scroll bars in the GUI
     set guioptions-=L
     set guioptions-=r
+    " show always the tab bar
+    set showtabline=2
 end
 
 
@@ -193,6 +196,7 @@ if has("autocmd")
   autocmd BufRead,BufNewFile *.cpp set syntax=cpp.doxygen
   autocmd BufRead,BufNewFile *.c set syntax=cpp.doxygen
   autocmd BufRead,BufNewFile *.h set syntax=cpp.doxygen
+  autocmd FileType cpp set omnifunc=omni#cpp#complete#Main
 
 endif
 
@@ -383,7 +387,7 @@ let g:EasyMotion_leader_key = '<Leader>m'
 let g:CommandTMaxFiles=2000
 let g:CommandTMaxHeight=20
 let g:CommandTMatchWindowAtTop=0
-set wildignore+=*.o,*.obj,*.pyc
+set wildignore+=*.o,*.obj,*.pyc,obj/*
 
 
 """""""""""""""""""""""""
@@ -429,5 +433,8 @@ let g:Tex_MultipleCompileFormats = 'pdf'
 " TMP
 """""""""""""""""""""""""""""""""""""
 "let g:org_activate_intert_mode_mappings="1"
-let g:org_agenda_files=['~/org/index.org', '~/org/TodaY.org', '~/org/EUBShopFelix.org', '~/org/vim-orgmode.org', '~/org/MachineLearning.org', '~/org/DataMining.org']
+let g:org_agenda_files=['~/org/index.org', '~/org/TodaY.org', '~/org/EUBShopFelix.org', '~/org/vim-orgmode.org', '~/org/MasterArbeit.org']
 
+
+" VIM MODLINE :)
+" vim: ts=4:sw=4:expandtab
