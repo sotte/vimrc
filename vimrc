@@ -65,7 +65,7 @@ set ignorecase                  " Make searches case-sensitive only if they cont
 set smartcase
 set gdefault                    " gdefault applies substitutions globally on lines
 
-set foldmethod=indent
+"set foldmethod=indent
 set mouse=a                     " enable using the mouse if terminal emulator
 
 " global undo file
@@ -164,47 +164,44 @@ highlight Pmenu ctermfg=1 ctermbg=4 guibg=grey30
 
 
 if has("autocmd")
-  " activate proto syntax hl
-  autocmd! BufRead,BufNewFile *.proto setfiletype proto
+    " activate proto syntax hl
+    autocmd! BufRead,BufNewFile *.proto setfiletype proto
 
-  " set colorcolumn for cpp higher than normaly
-  autocmd! BufRead,BufNewFile *.cpp setlocal colorcolumn=100
-  autocmd! BufRead,BufNewFile *.c setlocal colorcolumn=100
-  autocmd! BufRead,BufNewFile *.h setlocal colorcolumn=100
+    " set colorcolumn for cpp higher than normaly
+    autocmd! BufRead,BufNewFile *.cpp setlocal colorcolumn=100
+    autocmd! BufRead,BufNewFile *.c setlocal colorcolumn=100
+    autocmd! BufRead,BufNewFile *.h setlocal colorcolumn=100
 
-  " auto save on losing focus
-  autocmd FocusLost * :wa
+    " auto save on losing focus
+    autocmd FocusLost * :wa
 
-  " Source the vimrc file after saving it
-  autocmd bufwritepost .vimrc source $MYVIMRC
-  
-  " rm trailing whitesprce for c files
-  " http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
-  autocmd BufWritePre *.c :%s/\s\+$//e
-  autocmd BufWritePre *.cpp :%s/\s\+$//e
-  autocmd BufWritePre *.h :%s/\s\+$//e
-  autocmd BufWritePre *.py :%s/\s\+$//e
+    " Source the vimrc file after saving it
+    autocmd bufwritepost .vimrc source $MYVIMRC
 
-  " Python stuff
-  autocmd FileType python set expandtab
-  autocmd BufNewFile,BufRead *.py compiler nose
+    " rm trailing whitesprce for c files
+    " http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
+    autocmd BufWritePre *.c :%s/\s\+$//e
+    autocmd BufWritePre *.cpp :%s/\s\+$//e
+    autocmd BufWritePre *.h :%s/\s\+$//e
+    autocmd BufWritePre *.py :%s/\s\+$//e
 
-  " highlight variable under cursor (not smart)
-  "autocmd BufRead,BufNewFile *.py,*.pyw,*.c  autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
+    " Octave Syntax
+    autocmd! BufRead,BufNewFile *.m,*.oct setfiletype octave
+    " Python stuff
+    autocmd FileType python set expandtab
+    autocmd BufNewFile,BufRead *.py compiler nose
 
-  " activate cpp and doxygen syntax for *.c and *.cpp files
-  autocmd BufRead,BufNewFile *.cpp set syntax=cpp.doxygen
-  autocmd BufRead,BufNewFile *.c set syntax=cpp.doxygen
-  autocmd BufRead,BufNewFile *.h set syntax=cpp.doxygen
-  autocmd FileType cpp set omnifunc=omni#cpp#complete#Main
+    " highlight variable under cursor (not smart)
+    "autocmd BufRead,BufNewFile *.py,*.pyw,*.c  autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
 
+    " activate cpp and doxygen syntax for *.c and *.cpp files
+    autocmd FileType cpp set syntax=cpp.doxygen
+
+    " set omnicomplete for cpp
+    autocmd FileType cpp set omnifunc=omni#cpp#complete#Main
 endif
 
 
-" Octave Syntax
-augroup filetypedetect
-  autocmd! BufRead,BufNewFile *.m,*.oct setfiletype octave
-augroup END
 
 
 " Soft wrapping text
@@ -248,11 +245,11 @@ if has("gui")
     " C-Space seems to work under gVim on both Linux and win32
     inoremap <C-Space> <C-n>
 else " no gui
-  if has("unix")
-    inoremap <Nul> <C-n>
-  else
-  " I have no idea of the name of Ctrl-Space elsewhere
-  endif
+    if has("unix")
+        inoremap <Nul> <C-n>
+    else
+        " I have no idea of the name of Ctrl-Space elsewhere
+    endif
 endif
 
 
