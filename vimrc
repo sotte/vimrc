@@ -187,12 +187,20 @@ if has("autocmd")
 
     " Octave Syntax
     autocmd! BufRead,BufNewFile *.m,*.oct setfiletype octave
+
     " Python stuff
     autocmd FileType python set expandtab
     autocmd BufNewFile,BufRead *.py compiler nose
 
     " highlight variable under cursor (not smart)
     "autocmd BufRead,BufNewFile *.py,*.pyw,*.c  autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
+
+    " HTML
+    autocmd FileType html setlocal syntax=jinja
+    autocmd FileType html setlocal tabstop=2                   " a tab is four spaces
+    autocmd FileType html setlocal shiftwidth=2                " number of spaces to use for autoindenting
+    autocmd FileType html setlocal softtabstop=2
+    autocmd FileType html setlocal expandtab
 
     " activate cpp and doxygen syntax for *.c and *.cpp files
     autocmd FileType cpp set syntax=cpp.doxygen
@@ -387,13 +395,32 @@ let g:CommandTMatchWindowAtTop=0
 set wildignore+=*.o,*.obj,*.pyc,obj/*
 
 
-"""""""""""""""""""""""""
-" ctags and tag list 
-"""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""
+" ctags, tag list and omnicppcomplete
+"""""""""""""""""""""""""""""""""""""""
 let Tlist_Ctags_Cmd = "/usr/bin/ctags"
 "set tags=/tags,./../tags,./../../tags,./../../../tags,tags
 set tags=./tags;
 map <F4> :TagbarOpenAutoClose<cr>
+
+" regenerate ctags for current dir
+map <F12> :!ctags --verbose -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+" configure tags 
+set tags+=~/.vim/tags/std
+" OmniCppComplete
+let OmniCpp_NamespaceSearch = 1
+let OmniCpp_GlobalScopeSearch = 1
+let OmniCpp_ShowAccess = 1
+let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+
+let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+
+let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+" automatically open and close the popup menu / preview window
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+set completeopt=menuone,menu,longest,preview
 
 
 """""""""""""""""""""""""
