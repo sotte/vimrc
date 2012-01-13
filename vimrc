@@ -172,6 +172,10 @@ if has("autocmd")
     autocmd! BufRead,BufNewFile *.c setlocal colorcolumn=100
     autocmd! BufRead,BufNewFile *.h setlocal colorcolumn=100
 
+    " latex settings
+    autocmd! BufRead,BufNewFile *.tex setlocal shiftwidth=2 tabstop=2
+    autocmd! BufRead,BufNewFile *.tex setlocal expandtab
+
     " auto save on losing focus
     autocmd FocusLost * :wa
 
