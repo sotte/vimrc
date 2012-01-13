@@ -1,25 +1,21 @@
-""""""""""""""""""""
-"    pathogen
-""""""""""""""""""""
+" pathogen {{{
 filetype off
 filetype plugin off
 filetype indent off
-
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
 
 " How to install plugins:
 " =======================
 " git submodule add http://github.com/tpope/vim-fugitive.git bundle/fugitive
 " git add .
 " git commit
-"
-""""""""""""""""""""
-" General settings
-""""""""""""""""""""
+call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+" }}}
+" General settings {{{ 
 set nocompatible
 colorscheme molokai
-
+set mouse=a                     " enable using the mouse if terminal emulator
+" }}}
 " Editing behaviour {{{
 filetype on
 filetype plugin on
@@ -55,31 +51,27 @@ set scrolloff=999
 
 set ttyfast
 set cursorline                  " highlight current line
-
-
-" === search and replace ===
+" }}}
+" search and replace  {{{
 set showmatch
 set hlsearch                    " highlight search terms
 set incsearch                   " show search matches as you type
 set ignorecase                  " Make searches case-sensitive only if they contain upper-case characters
 set smartcase
 set gdefault                    " gdefault applies substitutions globally on lines
-
-"set foldmethod=indent
-set mouse=a                     " enable using the mouse if terminal emulator
-
-" global undo file
-set undofile                    " use global undo
-set undodir=~/.vim/undo         " this folder for global undo
-
 " }}}
-
+" Backup and similar stuff {{{
+set undofile                    " use global undo
+set undodir=~/.vim/tmp/undo//     " undo files
+set backupdir=~/.vim/tmp/backup// " backups
+set directory=~/.vim/tmp/swap//   " swap files
+set backup                        " enable backups
+set noswapfile                    " It's 2012, Vim.
+" }}}
 " Vim behaviour {{{
 set hidden                      " Allow backgrounding buffers without writing them, and remember marks/undo for backgrounded buffers
 set history=1000                " Remember more commands and search history
 set undolevels=1000             " use many muchos levels of undo
-set nobackup                    " do not keep backup files, it's 70's style cluttering
-set noswapfile                  " do not write annoying intermediate swap files,
                                 " who did ever restore from swap files anyway?
 set wildmenu                    " Make tab completion for files/buffers act like bash
 set wildmode=list:full          " show a list when pressing tab and complete
@@ -98,15 +90,34 @@ set autoread                    " automatically update the buffer if file got
 set clipboard=unnamed
 
 
-" Store temporary files in a central spot
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 " }}}
+" Folding ----------------------------------------------------------------- {{{
+set foldlevelstart=0
+set foldmethod=syntax
 
+" Space to toggle folds.
+nnoremap <Space> za
+vnoremap <Space> za
 
-""""""""""""""""""""
-"   GUI settings
-""""""""""""""""""""
+function! MyFoldText() " {{{
+    let line = getline(v:foldstart)
+
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth - 3
+    let foldedlinecount = v:foldend - v:foldstart
+
+    " expand tabs into spaces
+    let onetab = strpart('          ', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g')
+
+    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+endfunction " }}}
+
+set foldtext=MyFoldText()
+" }}}
+" GUI and appearance settings {{{
 if has("gui_running")
     " set color scheme and font
     colorscheme molokai
@@ -123,18 +134,16 @@ if has("gui_running")
     " Don't show scroll bars in the GUI
     set guioptions-=L
     set guioptions-=r
+    set guioptions-=e
+    set guioptions-=t
     " show always the tab bar
     set showtabline=2
 end
 
-
 " higligt mode
 hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
 
-
-""""""""""""""""""""
-" statusline
-""""""""""""""""""""
+" statusline {{{
 set laststatus=2                " tell VIM to always put a status line in, even
 set t_Co=256 " Explicitly tell vim that the terminal has 256 colors
 " powerline settings
@@ -143,11 +152,11 @@ let g:Powerline_symbols = 'fancy'
 " Number of screen lines to use for the command-line
 set cmdheight=2
 
-
 " different color for autocomplete menu
 highlight Pmenu ctermfg=1 ctermbg=4 guibg=grey30
-
-
+" }}}
+" }}}
+" autocmd {{{
 if has("autocmd")
     " activate proto syntax hl
     autocmd! BufRead,BufNewFile *.proto setfiletype proto
@@ -165,7 +174,7 @@ if has("autocmd")
     autocmd FocusLost * :wa
 
     " Source the vimrc file after saving it
-    autocmd bufwritepost .vimrc source $MYVIMRC
+    "autocmd bufwritepost .vimrc source $MYVIMRC
 
     " rm trailing whitesprce for c files
     " http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
@@ -197,45 +206,34 @@ if has("autocmd")
     " set omnicomplete for cpp
     autocmd FileType cpp set omnifunc=omni#cpp#complete#Main
 endif
-
-
-
-
-" Soft wrapping text
-" http://vimcasts.org/episodes/soft-wrapping-text/
-" simply enter :Wrap
-command! -nargs=* Wrap set wrap linebreak nolist textwidth=0
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"   Mappings -- Shortcut mappings {{{
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" }}}
+" mappings --------------------------------------------------------------- {{{
 " remap leader
 let mapleader=","
 let maplocalleader = ","
 
-
 " additional esc with ii
 inoremap ii <ESC>
-
 
 " clear the search buffer when hitting return
 nnoremap <leader><space> :nohlsearch<CR>
 
+" Delete to end of line
+nnoremap D d$
 
 " Insert Date 
 nmap <leader>st a<C-R>=strftime("<%Y-%m-%d %a>")<CR><Esc>
 imap ,st <C-R>=strftime("<%Y-%m-%d %a>")<CR>
 
-
 " Don't use Ex mode, use Q for formatting
-"map Q gq
-
+map Q gqip
+"
+" Split line (sister to [J]oin lines)
+" The normal use of S is covered by cc, so don't worry about shadowing it.
+nnoremap S i<cr><esc><right>
 
 " toggle list
 nmap <leader>sl :set list!<CR>
-
 
 " map autocompletion to cmd space
 if has("gui")
@@ -253,42 +251,35 @@ endif
 " Substitute word under cursor. VERY useful
 nnoremap <Leader>sr :%s/\<<C-r><C-w>\>/
 
-
 " change working dir to file
 map <leader>cd :cd %:p:h<CR>
-
 
 " use regular regex (not vim style) for search
 nnoremap / /\v
 vnoremap / /\v
 
-
 " spellchecker
 set spelllang=de_de
 nmap <silent> <leader>ss :set spell!<CR>
 
-
 " open .vimrc in new tab with: ,v
 nmap <leader>sv :tabedit $MYVIMRC<CR>
-
 
 " split window stuff
 " open split window
 nnoremap <leader>v <C-w>v<C-w>l
-" left
+" move left
 nnoremap <C-n> <C-w>h
-" down
+" move down
 nnoremap <C-e> <C-w>j
-" up
+" move up
 nnoremap <C-u> <C-w>k
-" down
+" move down
 nnoremap <C-i> <C-w>l
-
 
 " Start python on F5
 autocmd FileType python map <F5> :w<CR>:!python "%"<CR>
 map <F5> :make<CR>
-
 
 " nicer cursor movements:
 " use visible lines instead of real lines for cursor movement
@@ -297,12 +288,31 @@ map <F5> :make<CR>
 map <up> gk
 map <down> gj
 
+" Keep search matches in the middle of the window and pulse the line when moving
+" to them.
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                              PLUGIN SETTINGS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Don't move on *
+nnoremap * *<c-o>
 
+" Same when jumping around
+nnoremap g; g;zz
+nnoremap g, g,zz
+" }}}
+" Line Return {{{
 
+" Make sure Vim returns to the same line when you reopen a file.
+" Thanks, Amit
+augroup line_return
+    au!
+    au BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \     execute 'normal! g`"zvzz' |
+        \ endif
+augroup END
+" }}}
+" PLUGIN SETTINGS ---------------------------------------------------------{{{
 """"""""""""""""""""
 "  python syntax
 """"""""""""""""""""
@@ -315,7 +325,6 @@ let python_highlight_all = 1
 """"""""""""""""""""
 " Set this option in your vimrc file to disable quickfix support for pyflakes
 let g:pyflakes_use_quickfix = 0
-
 
 
 """"""""""""""""""""
@@ -440,14 +449,10 @@ let g:Tex_CompileRule_pdf = 'xelatex -interaction=nonstopmode $*'
 let g:Tex_DefaultTargetFormat = 'pdf'
 "let g:Tex_ViewRule_pdf = 'evince'
 let g:Tex_MultipleCompileFormats = 'pdf'
-
-
-"""""""""""""""""""""""""""""""""""""
-" TMP
-"""""""""""""""""""""""""""""""""""""
+" }}}
+" TMP {{{
 "let g:org_activate_intert_mode_mappings="1"
 let g:org_agenda_files=['~/org/index.org', '~/org/TodaY.org', '~/org/EUBShopFelix.org', '~/org/vim-orgmode.org', '~/org/MasterArbeit.org']
-
-
+" }}}
 " VIM MODLINE :)
 " vim: ts=4:sw=4:expandtab
