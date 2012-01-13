@@ -1,4 +1,6 @@
-" pathogen {{{
+" .vimrc
+" Author: Stefan Otte <stefan.otte@gmail.com>
+" Preamble & Pathogen ------------------------------------------------------{{{
 filetype off
 filetype plugin off
 filetype indent off
@@ -10,13 +12,10 @@ filetype indent off
 " git commit
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
-" }}}
-" General settings {{{ 
+
 set nocompatible
-colorscheme molokai
-set mouse=a                     " enable using the mouse if terminal emulator
 " }}}
-" Editing behaviour {{{
+" Basic behaviour ----------------------------------------------------------{{{
 filetype on
 filetype plugin on
 filetype indent on
@@ -24,8 +23,7 @@ syntax on
 
 set encoding=utf-8              " use UTF-8 encoding
 set number                      " always show line numbers
-"set relativenumber              " show relativ line numbers
-
+set norelativenumber            " show no relativ line numbers
 
 " formating options for text
 " see http://vimcasts.org/episodes/hard-wrapping-text/ for more infos
@@ -36,12 +34,9 @@ set colorcolumn=79
 set linebreak
 set list
 set listchars=tab:▸\ ,eol:¬
-
-" tabs and whitespaces
-set tabstop=4                   " a tab is four spaces
-set shiftwidth=4                " number of spaces to use for autoindenting
-set softtabstop=4
-set noexpandtab                 " use whitspace instaed of tab
+set hidden                      " Allow backgrounding buffers without writing them, and remember marks/undo for backgrounded buffers
+set history=1000                " Remember more commands and search history
+set undolevels=1000             " use many muchos levels of undo
 
 set backspace=indent,eol,start  " allow backspacing over everything in insert mode
 set smarttab
@@ -50,33 +45,6 @@ set smarttab
 set scrolloff=999               
 
 set ttyfast
-set cursorline                  " highlight current line
-" }}}
-" search and replace  {{{
-set showmatch
-set hlsearch                    " highlight search terms
-set incsearch                   " show search matches as you type
-set ignorecase                  " Make searches case-sensitive only if they contain upper-case characters
-set smartcase
-set gdefault                    " gdefault applies substitutions globally on lines
-" }}}
-" Backup and similar stuff {{{
-set undofile                    " use global undo
-set undodir=~/.vim/tmp/undo//     " undo files
-set backupdir=~/.vim/tmp/backup// " backups
-set directory=~/.vim/tmp/swap//   " swap files
-set backup                        " enable backups
-set noswapfile                    " It's 2012, Vim.
-" }}}
-" Vim behaviour {{{
-set hidden                      " Allow backgrounding buffers without writing them, and remember marks/undo for backgrounded buffers
-set history=1000                " Remember more commands and search history
-set undolevels=1000             " use many muchos levels of undo
-                                " who did ever restore from swap files anyway?
-set wildmenu                    " Make tab completion for files/buffers act like bash
-set wildmode=list:full          " show a list when pressing tab and complete
-                                " first full match
-"set wildmode=longest,list       " GRB: use emacs-style tab completion when selecting files, etc
 set title                       " change the terminal's title
 set novisualbell                " no visual flash on error
 set noerrorbells                " don't beep
@@ -90,6 +58,33 @@ set autoread                    " automatically update the buffer if file got
 set clipboard=unnamed
 
 
+" }}}
+" Tabs and whitespaces -----------------------------------------------------{{{
+set tabstop=4                   " a tab is four spaces
+set shiftwidth=4                " number of spaces to use for autoindenting
+set softtabstop=4
+set noexpandtab                 " use whitspace instaed of tab
+" }}}
+" Search and replace -------------------------------------------------------{{{
+set showmatch
+set hlsearch                    " highlight search terms
+set incsearch                   " show search matches as you type
+set ignorecase                  " Make searches case-sensitive only if they contain upper-case characters
+set smartcase
+set gdefault                    " gdefault applies substitutions globally on lines
+" }}}
+" Backup and similar stuff -------------------------------------------------{{{
+set undofile                    " use global undo
+set undodir=~/.vim/tmp/undo//     " undo files
+set backupdir=~/.vim/tmp/backup// " backups
+set directory=~/.vim/tmp/swap//   " swap files
+set backup                        " enable backups
+set noswapfile                    " It's 2012, Vim.
+" }}}
+" Wildmenu -----------------------------------------------------------------{{{
+set wildmenu                    " Make tab completion for files/buffers act like bash
+set wildmode=list:longest
+"set wildmode=longest,list       " GRB: use emacs-style tab completion when selecting files, etc
 " }}}
 " Folding ----------------------------------------------------------------- {{{
 set foldlevelstart=0
@@ -117,25 +112,22 @@ endfunction " }}}
 
 set foldtext=MyFoldText()
 " }}}
-" GUI and appearance settings {{{
+" GUI and appearance settings --------------------------------------------- {{{
+
+set cursorline                  " highlight current line
+
 if has("gui_running")
     " set color scheme and font
     colorscheme molokai
     set guifont=Inconsolata-dz\ for\ Powerline\ Medium\ 10
 
-
-    " higlight misspeled python stuff differently
+    " higlight misspeled stuff differently
     highlight SpellBad term=underline gui=undercurl guisp=Orange 
     
-    " gvim: do not use gvim gui
-	"set guioptions=
-    " hide the toolbar in GUI mode
-    set guioptions-=T
-    " Don't show scroll bars in the GUI
-    set guioptions-=L
-    set guioptions-=r
-    set guioptions-=e
-    set guioptions-=t
+    " gvim: do not use gvims gui
+    set guioptions=
+    "enable menu
+    set guioptions+=m
     " show always the tab bar
     set showtabline=2
 end
@@ -156,62 +148,91 @@ set cmdheight=2
 highlight Pmenu ctermfg=1 ctermbg=4 guibg=grey30
 " }}}
 " }}}
-" autocmd {{{
-if has("autocmd")
-    " activate proto syntax hl
-    autocmd! BufRead,BufNewFile *.proto setfiletype proto
+" FileType specific stuff --------------------------------------------------{{{
+"
+" latex settings
+autocmd! BufRead,BufNewFile *.tex setlocal shiftwidth=2 tabstop=2
+autocmd! BufRead,BufNewFile *.tex setlocal expandtab
 
+" auto save on losing focus
+autocmd FocusLost * :wa
+
+" Source the vimrc file after saving it
+"autocmd bufwritepost .vimrc source $MYVIMRC
+
+
+" Octave Syntax
+autocmd! BufRead,BufNewFile *.m,*.oct setfiletype octave
+
+" Python stuff
+autocmd FileType python set expandtab
+autocmd BufNewFile,BufRead *.py compiler nose
+
+" http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
+autocmd BufWritePre *.py :%s/\s\+$//e
+" highlight variable under cursor (not smart)
+"autocmd BufRead,BufNewFile *.py,*.pyw,*.c  autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
+" Vim {{{
+
+augroup ft_vim
+    au!
+
+    au FileType vim setlocal foldmethod=marker
+    au FileType help setlocal textwidth=78
+    au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
+augroup END
+
+" }}}
+" proto {{{
+
+augroup ft_proto
+    au!
+    autocmd! BufRead,BufNewFile *.proto setfiletype proto
+augroup END
+
+" }}}
+" CPP and C ----------------------------------------------------------------{{{
+
+augroup ft_cpp
+    au!
     " set colorcolumn for cpp higher than normaly
     autocmd! BufRead,BufNewFile *.cpp setlocal colorcolumn=100
     autocmd! BufRead,BufNewFile *.c setlocal colorcolumn=100
     autocmd! BufRead,BufNewFile *.h setlocal colorcolumn=100
-
-    " latex settings
-    autocmd! BufRead,BufNewFile *.tex setlocal shiftwidth=2 tabstop=2
-    autocmd! BufRead,BufNewFile *.tex setlocal expandtab
-
-    " auto save on losing focus
-    autocmd FocusLost * :wa
-
-    " Source the vimrc file after saving it
-    "autocmd bufwritepost .vimrc source $MYVIMRC
-
-    " rm trailing whitesprce for c files
-    " http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
-    autocmd BufWritePre *.c :%s/\s\+$//e
-    autocmd BufWritePre *.cpp :%s/\s\+$//e
-    autocmd BufWritePre *.h :%s/\s\+$//e
-    autocmd BufWritePre *.py :%s/\s\+$//e
-
-    " Octave Syntax
-    autocmd! BufRead,BufNewFile *.m,*.oct setfiletype octave
-
-    " Python stuff
-    autocmd FileType python set expandtab
-    autocmd BufNewFile,BufRead *.py compiler nose
-
-    " highlight variable under cursor (not smart)
-    "autocmd BufRead,BufNewFile *.py,*.pyw,*.c  autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
-
-    " HTML
-    autocmd FileType html setlocal syntax=jinja
-    autocmd FileType html setlocal tabstop=2                   " a tab is four spaces
-    autocmd FileType html setlocal shiftwidth=2                " number of spaces to use for autoindenting
-    autocmd FileType html setlocal softtabstop=2
-    autocmd FileType html setlocal expandtab
 
     " activate cpp and doxygen syntax for *.c and *.cpp files
     autocmd FileType cpp set syntax=cpp.doxygen
 
     " set omnicomplete for cpp
     autocmd FileType cpp set omnifunc=omni#cpp#complete#Main
-endif
+
+    " http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
+    autocmd BufWritePre *.c :%s/\s\+$//e
+    autocmd BufWritePre *.h :%s/\s\+$//e
+    autocmd BufWritePre *.cpp :%s/\s\+$//e
+augroup END
+
 " }}}
-" mappings --------------------------------------------------------------- {{{
-" remap leader
+" html {{{
+
+augroup ft_html
+    au!
+    " HTML
+    autocmd FileType html setlocal syntax=jinja
+    autocmd FileType html setlocal tabstop=2                   " a tab is four spaces
+    autocmd FileType html setlocal shiftwidth=2                " number of spaces to use for autoindenting
+    autocmd FileType html setlocal softtabstop=2
+    autocmd FileType html setlocal expandtab
+augroup END
+" }}}
+
+" }}}
+" Mappings ---------------------------------------------------------------- {{{
+" leader ------------------------------------------------------------------ {{{
+
 let mapleader=","
 let maplocalleader = ","
-
+" }}}
 " additional esc with ii
 inoremap ii <ESC>
 
@@ -225,17 +246,18 @@ nnoremap D d$
 nmap <leader>st a<C-R>=strftime("<%Y-%m-%d %a>")<CR><Esc>
 imap ,st <C-R>=strftime("<%Y-%m-%d %a>")<CR>
 
-" Don't use Ex mode, use Q for formatting
+" format with Q
 map Q gqip
-"
-" Split line (sister to [J]oin lines)
-" The normal use of S is covered by cc, so don't worry about shadowing it.
+
+" Split line (sister to [J]oin lines) The normal use of S is covered by cc, so
+" don't worry about shadowing it.
 nnoremap S i<cr><esc><right>
 
 " toggle list
 nmap <leader>sl :set list!<CR>
 
 " map autocompletion to cmd space
+" TODO: does not work
 if has("gui")
     " C-Space seems to work under gVim on both Linux and win32
     inoremap <C-Space> <C-n>
@@ -246,7 +268,6 @@ else " no gui
         " I have no idea of the name of Ctrl-Space elsewhere
     endif
 endif
-
 
 " Substitute word under cursor. VERY useful
 nnoremap <Leader>sr :%s/\<<C-r><C-w>\>/
@@ -278,7 +299,6 @@ nnoremap <C-u> <C-w>k
 nnoremap <C-i> <C-w>l
 
 " Start python on F5
-autocmd FileType python map <F5> :w<CR>:!python "%"<CR>
 map <F5> :make<CR>
 
 " nicer cursor movements:
@@ -300,7 +320,7 @@ nnoremap * *<c-o>
 nnoremap g; g;zz
 nnoremap g, g,zz
 " }}}
-" Line Return {{{
+" Line Return --------------------------------------------------------------{{{
 
 " Make sure Vim returns to the same line when you reopen a file.
 " Thanks, Amit
@@ -311,8 +331,9 @@ augroup line_return
         \     execute 'normal! g`"zvzz' |
         \ endif
 augroup END
+
 " }}}
-" PLUGIN SETTINGS ---------------------------------------------------------{{{
+" Plugin settings ----------------------------------------------------------{{{
 """"""""""""""""""""
 "  python syntax
 """"""""""""""""""""
@@ -450,9 +471,8 @@ let g:Tex_DefaultTargetFormat = 'pdf'
 "let g:Tex_ViewRule_pdf = 'evince'
 let g:Tex_MultipleCompileFormats = 'pdf'
 " }}}
-" TMP {{{
+" TMP ----------------------------------------------------------------------{{{
 "let g:org_activate_intert_mode_mappings="1"
 let g:org_agenda_files=['~/org/index.org', '~/org/TodaY.org', '~/org/EUBShopFelix.org', '~/org/vim-orgmode.org', '~/org/MasterArbeit.org']
 " }}}
-" VIM MODLINE :)
 " vim: ts=4:sw=4:expandtab
