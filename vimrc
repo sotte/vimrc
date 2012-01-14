@@ -57,6 +57,8 @@ set autoread                    " automatically update the buffer if file got
 " Enabling copy and paste between vim instances 
 set clipboard=unnamed
 
+" Resize splits when the window is resized
+au VimResized * exe "normal! \<c-w>="
 
 " }}}
 " Tabs and whitespaces -----------------------------------------------------{{{
