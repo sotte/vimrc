@@ -1,5 +1,6 @@
 " .vimrc
 " Author: Stefan Otte <stefan.otte@gmail.com>
+" Date: [2012-01-22 Sun]
 " Preamble & Pathogen ------------------------------------------------------{{{
 filetype off
 filetype plugin off
@@ -115,7 +116,6 @@ endfunction " }}}
 set foldtext=MyFoldText()
 " }}}
 " GUI and appearance settings --------------------------------------------- {{{
-
 set cursorline                  " highlight current line
 
 if has("gui_running")
@@ -140,6 +140,7 @@ hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
 " statusline {{{
 set laststatus=2                " tell VIM to always put a status line in, even
 set t_Co=256 " Explicitly tell vim that the terminal has 256 colors
+colorscheme molokai
 " powerline settings
 let g:Powerline_symbols = 'fancy'
 
@@ -151,7 +152,7 @@ highlight Pmenu ctermfg=1 ctermbg=4 guibg=grey30
 " }}}
 " }}}
 " FileType specific stuff --------------------------------------------------{{{
-"
+
 " latex settings
 autocmd! BufRead,BufNewFile *.tex setlocal shiftwidth=2 tabstop=2
 autocmd! BufRead,BufNewFile *.tex setlocal expandtab
@@ -161,7 +162,6 @@ autocmd FocusLost * :wa
 
 " Source the vimrc file after saving it
 "autocmd bufwritepost .vimrc source $MYVIMRC
-
 
 " Octave Syntax
 autocmd! BufRead,BufNewFile *.m,*.oct setfiletype octave
@@ -174,7 +174,7 @@ autocmd BufNewFile,BufRead *.py compiler nose
 autocmd BufWritePre *.py :%s/\s\+$//e
 " highlight variable under cursor (not smart)
 "autocmd BufRead,BufNewFile *.py,*.pyw,*.c  autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
-" Vim {{{
+" > Vim {{{
 
 augroup ft_vim
     au!
@@ -182,10 +182,11 @@ augroup ft_vim
     au FileType vim setlocal foldmethod=marker
     au FileType help setlocal textwidth=78
     au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
+    au BufWinEnter *.txt if &ft == '' | :IndentGuidesDisable | endif
 augroup END
 
 " }}}
-" proto {{{
+" > proto {{{
 
 augroup ft_proto
     au!
@@ -193,7 +194,7 @@ augroup ft_proto
 augroup END
 
 " }}}
-" CPP and C ----------------------------------------------------------------{{{
+" > CPP and C {{{ 
 
 augroup ft_cpp
     au!
@@ -215,7 +216,7 @@ augroup ft_cpp
 augroup END
 
 " }}}
-" html {{{
+" > html {{{
 
 augroup ft_html
     au!
@@ -230,11 +231,10 @@ augroup END
 
 " }}}
 " Mappings ---------------------------------------------------------------- {{{
-" leader ------------------------------------------------------------------ {{{
-
+" leader
 let mapleader=","
 let maplocalleader = ","
-" }}}
+
 " additional esc with ii
 inoremap ii <ESC>
 
@@ -335,90 +335,74 @@ augroup line_return
 augroup END
 
 " }}}
-" Plugin settings ----------------------------------------------------------{{{
-""""""""""""""""""""
-"  python syntax
-""""""""""""""""""""
+" Plugin settings --------------------------------------------------------- {{{
+" > python syntax --------------------------------------------------------- {{{
 " better python highlighting - see syntax/python.vim for more details
 let python_highlight_all = 1
-
-
-""""""""""""""""""""
-"    PyFlakes
-""""""""""""""""""""
+" }}}
+" > PyFlakes -------------------------------------------------------------- {{{
 " Set this option in your vimrc file to disable quickfix support for pyflakes
 let g:pyflakes_use_quickfix = 0
 
-
-""""""""""""""""""""
-"    ConqueTerm
-""""""""""""""""""""
+" }}}
+" > ConqueTerm ------------------------------------------------------------ {{{
 nmap <leader>z :ConqueTerm zsh <CR>
 
-
-""""""""""""""""""""
-"     OrgMode
-""""""""""""""""""""
+" }}}
+" > OrgMode --------------------------------------------------------------- {{{
 nmap <leader>wo :e ~/org/index.org<CR>
 let g:org_todo_keywords = ['TODO', '|', 'DONE']
 let g:org_todo_keyword_faces = [['TODO', [':foreground red', ':weight bold']], ['DONE', [':foreground green', ':weight bold']]]
 
 
-""""""""""""""""""""
-" a.vim
-""""""""""""""""""""
+" }}}
+" > a.vim ----------------------------------------------------------------- {{{
+
 " switch between .h and .cpp
 map <C-TAB> :A <CR>
 
-
-""""""""""""""""""""
-" Ack
-""""""""""""""""""""
+" }}}
+" > Ack ------------------------------------------------------------------- {{{
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 :nnoremap <leader>a :LAck 
 
 
-""""""""""""""""""""
-" NERDTree
-""""""""""""""""""""
-:nnoremap <leader>n :NERDTreeToggle<CR>
+" }}}
+" > NERDTree -------------------------------------------------------------- {{{
+"
+nnoremap <leader>n :NERDTreeToggle<CR>
 
+" }}}
+" > git fugitive ---------------------------------------------------------- {{{
 
-""""""""""""""""""""
-" git fugitive
-""""""""""""""""""""
-:nnoremap <leader>gs :Gstatus<CR>
-:nnoremap <leader>gd :Gdiff<CR>
-:nnoremap <leader>gw :Gwrite<CR>
-:nnoremap <leader>gc :Gcommit<CR>
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gw :Gwrite<CR>
+nnoremap <leader>gc :Gcommit<CR>
 
-
-""""""""""""""""""""""""
-" SnipMate
-""""""""""""""""""""""""
+" }}}
+" > SnipMate -------------------------------------------------------------- {{{
+"
 " need to source this file -- http://code.google.com/p/snipmate/issues/detail?id=66
 " Why?
 source ~/.vim/bundle/snipmate/after/plugin/snipMate.vim
 
 
-"""""""""""""""""""""""""
-"   vim-easymotion      "
-"""""""""""""""""""""""""
+" }}}
+" > vim-easymotion -------------------------------------------------------- {{{
+"
 let g:EasyMotion_leader_key = '<Leader>m'
 
+" }}}
+" > ctrl-p ---------------------------------------------------------------- {{{
 
-"""""""""""""""""""""""""
-" Command-T options
-"""""""""""""""""""""""""
-let g:CommandTMaxFiles=2000
-let g:CommandTMaxHeight=20
-let g:CommandTMatchWindowAtTop=0
-set wildignore+=*.o,*.obj,*.pyc,obj/*
+let g:ctrlp_map = '<leader>o'
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.o,*.obj,*.pyc
 
-
-"""""""""""""""""""""""""""""""""""""""
-" ctags, tag list and omnicppcomplete
-"""""""""""""""""""""""""""""""""""""""
+let g:ctrlp_extensions = ['buffertag']
+nnoremap <leader>t :CtrlPBufTag<CR>
+" }}}
+" > ctags, tag list and omnicppcomplete ----------------------------------- {{{
 let Tlist_Ctags_Cmd = "/usr/bin/ctags"
 "set tags=/tags,./../tags,./../../tags,./../../../tags,tags
 set tags=./tags;
@@ -444,9 +428,9 @@ au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set completeopt=menuone,menu,longest,preview
 
 
-"""""""""""""""""""""""""
-"     indent guides
-"""""""""""""""""""""""""
+" }}}
+" > Indent guides --------------------------------------------------------- {{{
+
 " see :help indent_guides
 let g:indent_guides_color_change_percent = 4
 let g:indent_guides_guide_size = 1
@@ -454,9 +438,8 @@ let g:indent_guides_start_level = 2
 let g:indent_guides_enable_on_vim_startup = 1
 
 
-"""""""""""""""""""""""""
-"         Latex
-"""""""""""""""""""""""""
+" }}}
+" > Latex ----------------------------------------------------------------- {{{
 " important: grep will sometimes skip displaying the file name if you
 " search in a singe file. This will confuse Latex-Suite. Set your grep
 " program to always generate a file-name.
@@ -473,7 +456,9 @@ let g:Tex_DefaultTargetFormat = 'pdf'
 "let g:Tex_ViewRule_pdf = 'evince'
 let g:Tex_MultipleCompileFormats = 'pdf'
 " }}}
+" }}}
 " TMP ----------------------------------------------------------------------{{{
+"
 "let g:org_activate_intert_mode_mappings="1"
 let g:org_agenda_files=['~/org/index.org', '~/org/TodaY.org', '~/org/EUBShopFelix.org', '~/org/vim-orgmode.org', '~/org/MasterArbeit.org']
 " }}}
