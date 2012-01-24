@@ -29,7 +29,7 @@ set norelativenumber            " show no relativ line numbers
 " formating options for text
 " see http://vimcasts.org/episodes/hard-wrapping-text/ for more infos
 set formatoptions=qrn1
-set wrap                        " wrap lines
+set nowrap
 set textwidth=79
 set colorcolumn=79
 set linebreak
@@ -336,6 +336,15 @@ augroup END
 
 " }}}
 " Plugin settings --------------------------------------------------------- {{{
+" > syntastic ------------------------------------------------------------- {{{
+
+"let g:syntastic_auto_loc_list=0
+let g:syntastic_enable_signs=1
+let g:syntastic_enable_balloons = 1
+let g:syntastic_enable_highlighting = 1
+let g:syntastic_quiet_warnings=0
+
+" }}}
 " > python syntax --------------------------------------------------------- {{{
 " better python highlighting - see syntax/python.vim for more details
 let python_highlight_all = 1
@@ -397,7 +406,7 @@ let g:EasyMotion_leader_key = '<Leader>m'
 " > ctrl-p ---------------------------------------------------------------- {{{
 
 let g:ctrlp_map = '<leader>o'
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.o,*.obj,*.pyc
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.o,*.obj,*.pyc,*.d
 
 let g:ctrlp_extensions = ['buffertag']
 nnoremap <leader>t :CtrlPBufTag<CR>
