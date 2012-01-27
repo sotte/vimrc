@@ -33,7 +33,7 @@ set nowrap
 set textwidth=79
 set colorcolumn=79
 set linebreak
-set list
+set nolist
 set listchars=tab:▸\ ,eol:¬
 set hidden                      " Allow backgrounding buffers without writing them, and remember marks/undo for backgrounded buffers
 set history=1000                " Remember more commands and search history
@@ -336,6 +336,25 @@ augroup END
 
 " }}}
 " Plugin settings --------------------------------------------------------- {{{
+" > Solarized Colorscheme Config ------------------------------------------ {{{
+
+let g:solarized_underline=0    "default value is 1
+let g:solarized_contrast="high"    "default value is normal
+let g:solarized_visibility="high"    "default value is normal
+let g:solarized_diffmode="high"    "default value is normal
+let g:solarized_hitrail=1    "default value is 0
+syntax enable
+set background=dark
+colorscheme solarized
+
+let g:solarized_termtrans=0
+let g:solarized_degrade=0
+let g:solarized_bold=1
+let g:solarized_italic=1
+let g:solarized_termcolors=256
+let g:solarized_menu=1
+
+" }}}
 " > syntastic ------------------------------------------------------------- {{{
 
 "let g:syntastic_auto_loc_list=0
