@@ -355,13 +355,15 @@ let g:solarized_termcolors=256
 let g:solarized_menu=1
 
 " }}}
-" > syntastic ------------------------------------------------------------- {{{
+" > Syntastic Syntax Checker ---------------------------------------------- {{{
 
-"let g:syntastic_auto_loc_list=0
+let g:syntastic_auto_loc_list=0
 let g:syntastic_enable_signs=1
 let g:syntastic_enable_balloons = 1
 let g:syntastic_enable_highlighting = 1
 let g:syntastic_quiet_warnings=0
+
+let g:syntastic_cpp_no_include_search=1
 
 " }}}
 " > python syntax --------------------------------------------------------- {{{
