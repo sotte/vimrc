@@ -118,3 +118,9 @@
 [submodule "bundle/ctrlp"]
 	path = bundle/ctrlp
 	url = https://github.com/kien/ctrlp.vim.git
+[submodule "bundle/vimroom"]
+	path = bundle/vimroom
+	url = https://github.com/mikewest/vimroom.git
+[submodule "bundle/wombat"]
+	path = bundle/wombat
+	url = https://github.com/vim-scripts/Wombat.git
