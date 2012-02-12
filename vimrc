@@ -92,6 +92,7 @@ set wildmode=list:longest
 " Folding ----------------------------------------------------------------- {{{
 set foldlevelstart=0
 set foldmethod=syntax
+set foldnestmax=2
 
 " Space to toggle folds.
 nnoremap <Space> za
@@ -153,6 +154,10 @@ highlight Pmenu ctermfg=1 ctermbg=4 guibg=grey30
 " }}}
 " FileType specific stuff --------------------------------------------------{{{
 
+" jsp
+autocmd! BufRead,BufNewFile *.jsp setlocal shiftwidth=4 tabstop=4
+autocmd! BufRead,BufNewFile *.jsp setlocal noexpandtab
+
 " latex settings
 autocmd! BufRead,BufNewFile *.tex setlocal shiftwidth=2 tabstop=2
 autocmd! BufRead,BufNewFile *.tex setlocal expandtab
@@ -169,6 +174,7 @@ autocmd! BufRead,BufNewFile *.m,*.oct setfiletype octave
 " Python stuff
 autocmd FileType python set expandtab
 autocmd BufNewFile,BufRead *.py compiler nose
+autocmd BufNewFile,BufRead *.py setlocal foldmethod=indent
 
 " http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
 autocmd BufWritePre *.py :%s/\s\+$//e
@@ -222,10 +228,10 @@ augroup ft_html
     au!
     " HTML
     autocmd FileType html setlocal syntax=jinja
-    autocmd FileType html setlocal tabstop=2                   " a tab is four spaces
-    autocmd FileType html setlocal shiftwidth=2                " number of spaces to use for autoindenting
-    autocmd FileType html setlocal softtabstop=2
-    autocmd FileType html setlocal expandtab
+    autocmd FileType html setlocal tabstop=4                   " a tab is four spaces
+    autocmd FileType html setlocal shiftwidth=4                " number of spaces to use for autoindenting
+    autocmd FileType html setlocal softtabstop=4
+    autocmd FileType html setlocal noexpandtab
 augroup END
 " }}}
 
@@ -343,9 +349,6 @@ let g:solarized_contrast="high"    "default value is normal
 let g:solarized_visibility="high"    "default value is normal
 let g:solarized_diffmode="high"    "default value is normal
 let g:solarized_hitrail=1    "default value is 0
-syntax enable
-set background=dark
-colorscheme solarized
 
 let g:solarized_termtrans=0
 let g:solarized_degrade=0
@@ -354,6 +357,12 @@ let g:solarized_italic=1
 let g:solarized_termcolors=256
 let g:solarized_menu=1
 
+"set background=dark
+"colorscheme solarized
+
+" }}}
+" > vimroom settings ------------------------------------------------------ {{{
+let g:vimroom_guibackground = "white"
 " }}}
 " > Syntastic Syntax Checker ---------------------------------------------- {{{
 
