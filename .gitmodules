@@ -124,3 +124,6 @@
 [submodule "bundle/wombat"]
 	path = bundle/wombat
 	url = https://github.com/vim-scripts/Wombat.git
+[submodule "bundle/mayansmoke"]
+	path = bundle/mayansmoke
+	url = https://github.com/vim-scripts/mayansmoke.git
