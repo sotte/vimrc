@@ -287,9 +287,21 @@ map <leader>cd :cd %:p:h<CR>
 nnoremap / /\v
 vnoremap / /\v
 
-" spellchecker
-set spelllang=de_de
-nmap <silent> <leader>ss :set spell!<CR>
+" Spell Check
+let b:myLang=0
+let g:myLangList=["nospell","de_de","en_us"]
+function! ToggleSpell()
+  let b:myLang=b:myLang+1
+  if b:myLang>=len(g:myLangList) | let b:myLang=0 | endif
+  if b:myLang==0
+    setlocal nospell
+  else
+    execute "setlocal spell spelllang=".get(g:myLangList, b:myLang)
+  endif
+  echo "spell checking language:" g:myLangList[b:myLang]
+endfunction
+
+nmap <silent> <leader>ss :call ToggleSpell()<CR>
 
 " open .vimrc in new tab with: ,v
 nmap <leader>sv :tabedit $MYVIMRC<CR>
