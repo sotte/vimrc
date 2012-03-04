@@ -165,6 +165,8 @@ autocmd! BufRead,BufNewFile *.tex setlocal expandtab
 
 " auto save on losing focus
 autocmd FocusLost * :wa
+" Return to normal mode on FocustLost
+autocmd FocusLost * call feedkeys("\<C-\>\<C-n>")
 
 " Source the vimrc file after saving it
 "autocmd bufwritepost .vimrc source $MYVIMRC
