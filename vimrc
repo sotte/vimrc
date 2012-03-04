@@ -1,13 +1,14 @@
-" .vimrc
+" # .vimrc by stefan {{{
 " Author: Stefan Otte <stefan.otte@gmail.com>
 " Date: [2012-01-22 Sun]
-" Preamble & Pathogen ------------------------------------------------------{{{
+" }}}
+" # Preamble & Pathogen ------------------------------------------------------{{{
 filetype off
 filetype plugin off
 filetype indent off
 
-" How to install plugins:
-" =======================
+" ## How to install plugins with pathogen
+"
 " git submodule add http://github.com/tpope/vim-fugitive.git bundle/fugitive
 " git add .
 " git commit
@@ -16,7 +17,7 @@ call pathogen#helptags()
 
 set nocompatible
 " }}}
-" Basic behaviour ----------------------------------------------------------{{{
+" # Basic behaviour ----------------------------------------------------------{{{
 filetype on
 filetype plugin on
 filetype indent on
@@ -62,13 +63,13 @@ set clipboard=unnamed
 au VimResized * exe "normal! \<c-w>="
 
 " }}}
-" Tabs and whitespaces -----------------------------------------------------{{{
+" # Tabs and whitespaces -----------------------------------------------------{{{
 set tabstop=4                   " a tab is four spaces
 set shiftwidth=4                " number of spaces to use for autoindenting
 set softtabstop=4
 set noexpandtab                 " use whitspace instaed of tab
 " }}}
-" Search and replace -------------------------------------------------------{{{
+" # Search and replace -------------------------------------------------------{{{
 set showmatch
 set hlsearch                    " highlight search terms
 set incsearch                   " show search matches as you type
@@ -76,7 +77,7 @@ set ignorecase                  " Make searches case-sensitive only if they cont
 set smartcase
 set gdefault                    " gdefault applies substitutions globally on lines
 " }}}
-" Backup and similar stuff -------------------------------------------------{{{
+" # Backup and similar stuff -------------------------------------------------{{{
 set undofile                    " use global undo
 set undodir=~/.vim/tmp/undo//     " undo files
 set backupdir=~/.vim/tmp/backup// " backups
@@ -84,12 +85,12 @@ set directory=~/.vim/tmp/swap//   " swap files
 set backup                        " enable backups
 set noswapfile                    " It's 2012, Vim.
 " }}}
-" Wildmenu -----------------------------------------------------------------{{{
+" # Wildmenu -----------------------------------------------------------------{{{
 set wildmenu                    " Make tab completion for files/buffers act like bash
 set wildmode=list:longest
 "set wildmode=longest,list       " GRB: use emacs-style tab completion when selecting files, etc
 " }}}
-" Folding ----------------------------------------------------------------- {{{
+" # Folding ----------------------------------------------------------------- {{{
 set foldlevelstart=0
 set foldmethod=syntax
 set foldnestmax=2
@@ -116,7 +117,7 @@ endfunction " }}}
 
 set foldtext=MyFoldText()
 " }}}
-" GUI and appearance settings --------------------------------------------- {{{
+" # GUI and appearance settings --------------------------------------------- {{{
 set cursorline                  " highlight current line
 
 if has("gui_running")
@@ -152,7 +153,7 @@ set cmdheight=2
 highlight Pmenu ctermfg=1 ctermbg=4 guibg=grey30
 " }}}
 " }}}
-" FileType specific stuff --------------------------------------------------{{{
+" # FileType specific stuff --------------------------------------------------{{{
 
 " jsp
 autocmd! BufRead,BufNewFile *.jsp setlocal shiftwidth=4 tabstop=4
@@ -236,7 +237,7 @@ augroup END
 " }}}
 
 " }}}
-" Mappings ---------------------------------------------------------------- {{{
+" # Mappings ---------------------------------------------------------------- {{{
 " leader
 let mapleader=","
 let maplocalleader = ","
@@ -340,7 +341,7 @@ nnoremap * *<c-o>
 nnoremap g; g;zz
 nnoremap g, g,zz
 " }}}
-" Line Return --------------------------------------------------------------{{{
+" # Line Return --------------------------------------------------------------{{{
 
 " Make sure Vim returns to the same line when you reopen a file.
 " Thanks, Amit
@@ -353,8 +354,8 @@ augroup line_return
 augroup END
 
 " }}}
-" Plugin settings --------------------------------------------------------- {{{
-" > Solarized Colorscheme Config ------------------------------------------ {{{
+" # Plugin settings --------------------------------------------------------- {{{
+" ## Solarized Colorscheme Config ------------------------------------------ {{{
 
 let g:solarized_underline=0    "default value is 1
 let g:solarized_contrast="high"    "default value is normal
@@ -373,10 +374,10 @@ let g:solarized_menu=1
 "colorscheme solarized
 
 " }}}
-" > vimroom settings ------------------------------------------------------ {{{
+" ## vimroom settings ------------------------------------------------------ {{{
 let g:vimroom_guibackground = "white"
 " }}}
-" > Syntastic Syntax Checker ---------------------------------------------- {{{
+" ## Syntastic Syntax Checker ---------------------------------------------- {{{
 
 let g:syntastic_auto_loc_list=0
 let g:syntastic_enable_signs=1
@@ -387,44 +388,44 @@ let g:syntastic_quiet_warnings=0
 let g:syntastic_cpp_no_include_search=1
 
 " }}}
-" > python syntax --------------------------------------------------------- {{{
+" ## python syntax --------------------------------------------------------- {{{
 " better python highlighting - see syntax/python.vim for more details
 let python_highlight_all = 1
 " }}}
-" > PyFlakes -------------------------------------------------------------- {{{
+" ## PyFlakes -------------------------------------------------------------- {{{
 " Set this option in your vimrc file to disable quickfix support for pyflakes
 let g:pyflakes_use_quickfix = 0
 
 " }}}
-" > ConqueTerm ------------------------------------------------------------ {{{
+" ## ConqueTerm ------------------------------------------------------------ {{{
 nmap <leader>z :ConqueTerm zsh <CR>
 
 " }}}
-" > OrgMode --------------------------------------------------------------- {{{
+" ## OrgMode --------------------------------------------------------------- {{{
 nmap <leader>wo :e ~/org/index.org<CR>
 let g:org_todo_keywords = ['TODO', '|', 'DONE']
 let g:org_todo_keyword_faces = [['TODO', [':foreground red', ':weight bold']], ['DONE', [':foreground green', ':weight bold']]]
 
 
 " }}}
-" > a.vim ----------------------------------------------------------------- {{{
+" ## a.vim ----------------------------------------------------------------- {{{
 
 " switch between .h and .cpp
 map <C-TAB> :A <CR>
 
 " }}}
-" > Ack ------------------------------------------------------------------- {{{
+" ## Ack ------------------------------------------------------------------- {{{
 let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 :nnoremap <leader>a :LAck 
 
 
 " }}}
-" > NERDTree -------------------------------------------------------------- {{{
+" ## NERDTree -------------------------------------------------------------- {{{
 "
 nnoremap <leader>n :NERDTreeToggle<CR>
 
 " }}}
-" > git fugitive ---------------------------------------------------------- {{{
+" ## git fugitive ---------------------------------------------------------- {{{
 
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gd :Gdiff<CR>
@@ -432,7 +433,7 @@ nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>gc :Gcommit<CR>
 
 " }}}
-" > SnipMate -------------------------------------------------------------- {{{
+" ## SnipMate -------------------------------------------------------------- {{{
 "
 " need to source this file -- http://code.google.com/p/snipmate/issues/detail?id=66
 " Why?
@@ -440,12 +441,12 @@ source ~/.vim/bundle/snipmate/after/plugin/snipMate.vim
 
 
 " }}}
-" > vim-easymotion -------------------------------------------------------- {{{
+" ## vim-easymotion -------------------------------------------------------- {{{
 "
 let g:EasyMotion_leader_key = '<Leader>m'
 
 " }}}
-" > ctrl-p ---------------------------------------------------------------- {{{
+" ## ctrl-p ---------------------------------------------------------------- {{{
 
 let g:ctrlp_map = '<leader>o'
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.o,*.obj,*.pyc,*.d
@@ -453,7 +454,8 @@ set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.o,*.obj,*.pyc,*.d
 let g:ctrlp_extensions = ['buffertag']
 nnoremap <leader>t :CtrlPBufTag<CR>
 " }}}
-" > ctags, tag list and omnicppcomplete ----------------------------------- {{{
+" ## ctags, tag list and omnicppcomplete ----------------------------------- {{{
+
 let Tlist_Ctags_Cmd = "/usr/bin/ctags"
 "set tags=/tags,./../tags,./../../tags,./../../../tags,tags
 set tags=./tags;
@@ -480,7 +482,7 @@ set completeopt=menuone,menu,longest,preview
 
 
 " }}}
-" > Indent guides --------------------------------------------------------- {{{
+" ## Indent guides --------------------------------------------------------- {{{
 
 " see :help indent_guides
 let g:indent_guides_color_change_percent = 4
@@ -490,7 +492,8 @@ let g:indent_guides_enable_on_vim_startup = 1
 
 
 " }}}
-" > Latex ----------------------------------------------------------------- {{{
+" ## Latex ----------------------------------------------------------------- {{{
+
 " important: grep will sometimes skip displaying the file name if you
 " search in a singe file. This will confuse Latex-Suite. Set your grep
 " program to always generate a file-name.
@@ -508,7 +511,7 @@ let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_MultipleCompileFormats = 'pdf'
 " }}}
 " }}}
-" TMP ----------------------------------------------------------------------{{{
+" # TMP ----------------------------------------------------------------------{{{
 "
 "let g:org_activate_intert_mode_mappings="1"
 let g:org_agenda_files=['~/org/index.org', '~/org/TodaY.org', '~/org/EUBShopFelix.org', '~/org/vim-orgmode.org', '~/org/MasterArbeit.org']
