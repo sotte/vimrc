@@ -32,7 +32,7 @@ set norelativenumber            " show no relativ line numbers
 set formatoptions=qrn1
 set nowrap
 set textwidth=79
-set colorcolumn=79
+set colorcolumn=0
 set linebreak
 set nolist
 set listchars=tab:▸\ ,eol:¬
@@ -119,6 +119,8 @@ set foldtext=MyFoldText()
 " }}}
 " # GUI and appearance settings --------------------------------------------- {{{
 set cursorline                  " highlight current line
+set t_Co=256 " Explicitly tell vim that the terminal has 256 colors
+colorscheme molokai
 
 if has("gui_running")
     " set color scheme and font
@@ -126,7 +128,7 @@ if has("gui_running")
     set guifont=Inconsolata-dz\ for\ Powerline\ Medium\ 10
 
     " higlight misspeled stuff differently
-    highlight SpellBad term=underline gui=undercurl guisp=Orange 
+    "highlight SpellBad term=underline gui=undercurl guisp=Orange 
     
     " gvim: do not use gvims gui
     set guioptions=
@@ -137,12 +139,10 @@ if has("gui_running")
 end
 
 " higligt mode
-hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
+"hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
 
 " statusline {{{
 set laststatus=2                " tell VIM to always put a status line in, even
-set t_Co=256 " Explicitly tell vim that the terminal has 256 colors
-colorscheme molokai
 " powerline settings
 let g:Powerline_symbols = 'fancy'
 
@@ -150,9 +150,9 @@ let g:Powerline_symbols = 'fancy'
 set cmdheight=2
 
 " different color for autocomplete menu
-highlight Pmenu ctermfg=1 ctermbg=4 guibg=grey30
+"highlight Pmenu ctermfg=1 ctermbg=4 guibg=grey30
 " }}}
-" }}}
+" }}} GUI
 " # FileType specific stuff --------------------------------------------------{{{
 
 " jsp
@@ -178,6 +178,8 @@ autocmd! BufRead,BufNewFile *.m,*.oct setfiletype octave
 autocmd FileType python set expandtab
 autocmd BufNewFile,BufRead *.py compiler nose
 autocmd BufNewFile,BufRead *.py setlocal foldmethod=indent
+
+autocmd FileType python set omnifunc=pythoncomplete#Complete
 
 " http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
 autocmd BufWritePre *.py :%s/\s\+$//e
@@ -514,8 +516,9 @@ let g:Tex_MultipleCompileFormats = 'pdf'
 " }}}
 " }}}
 " # TMP ----------------------------------------------------------------------{{{
-"
+
 "let g:org_activate_intert_mode_mappings="1"
 let g:org_agenda_files=['~/org/index.org', '~/org/TodaY.org', '~/org/EUBShopFelix.org', '~/org/vim-orgmode.org', '~/org/MasterArbeit.org']
+
 " }}}
 " vim: ts=4:sw=4:expandtab
