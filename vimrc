@@ -23,6 +23,10 @@ filetype plugin on
 filetype indent on
 syntax on
 
+set t_Co=256 " Explicitly tell vim that the terminal has 256 colors
+set background=dark
+colorscheme molokai
+
 set encoding=utf-8              " use UTF-8 encoding
 set number                      " always show line numbers
 set norelativenumber            " show no relativ line numbers
@@ -119,8 +123,7 @@ set foldtext=MyFoldText()
 " }}}
 " # GUI and appearance settings --------------------------------------------- {{{
 set cursorline                  " highlight current line
-set t_Co=256 " Explicitly tell vim that the terminal has 256 colors
-colorscheme molokai
+"colorscheme molokai
 
 if has("gui_running")
     " set color scheme and font
@@ -361,7 +364,7 @@ augroup END
 " # Plugin settings --------------------------------------------------------- {{{
 " ## Solarized Colorscheme Config ------------------------------------------ {{{
 
-let g:solarized_underline=0    "default value is 1
+let g:solarized_underline=1    "default value is 1
 let g:solarized_contrast="high"    "default value is normal
 let g:solarized_visibility="high"    "default value is normal
 let g:solarized_diffmode="high"    "default value is normal
@@ -371,8 +374,8 @@ let g:solarized_termtrans=0
 let g:solarized_degrade=0
 let g:solarized_bold=1
 let g:solarized_italic=1
-let g:solarized_termcolors=256
 let g:solarized_menu=1
+let g:solarized_termcolors=256
 
 "set background=dark
 "colorscheme solarized
