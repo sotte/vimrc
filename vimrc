@@ -158,6 +158,10 @@ set cmdheight=2
 " }}} GUI
 " # FileType specific stuff --------------------------------------------------{{{
 
+" git commit
+" disable folding
+autocmd! FileType gitcommit setlocal foldlevel=1
+
 " jsp
 autocmd! BufRead,BufNewFile *.jsp setlocal shiftwidth=4 tabstop=4
 autocmd! BufRead,BufNewFile *.jsp setlocal noexpandtab
