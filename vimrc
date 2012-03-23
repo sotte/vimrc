@@ -39,7 +39,7 @@ set textwidth=79
 set colorcolumn=0
 set linebreak
 set nolist
-set listchars=tab:▸\ ,eol:¬
+set listchars=tab:▸\ ,eol:¬,trail:~
 set hidden                      " Allow backgrounding buffers without writing them, and remember marks/undo for backgrounded buffers
 set history=1000                " Remember more commands and search history
 set undolevels=1000             " use many muchos levels of undo
