@@ -48,7 +48,7 @@ set backspace=indent,eol,start  " allow backspacing over everything in insert mo
 set smarttab
 " try to ceep the cursor in the middle of the screen
 " http://vim.wikia.com/wiki/Keep_your_cursor_centered_vertically_on_the_screen
-set scrolloff=999               
+set scrolloff=999
 
 set ttyfast
 set title                       " change the terminal's title
@@ -65,6 +65,8 @@ set clipboard=unnamed
 
 " Resize splits when the window is resized
 au VimResized * exe "normal! \<c-w>="
+
+let g:SuperTabDefaultCompletionType = "context"
 
 " }}}
 " # Tabs and whitespaces -----------------------------------------------------{{{
@@ -142,7 +144,10 @@ if has("gui_running")
 end
 
 " higligt mode
-"hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
+hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
+
+" different color for autocomplete menu
+"highlight Pmenu ctermfg=1 ctermbg=4 guibg=grey30
 
 " statusline {{{
 set laststatus=2                " tell VIM to always put a status line in, even
@@ -152,11 +157,12 @@ let g:Powerline_symbols = 'fancy'
 " Number of screen lines to use for the command-line
 set cmdheight=2
 
-" different color for autocomplete menu
-"highlight Pmenu ctermfg=1 ctermbg=4 guibg=grey30
 " }}}
 " }}} GUI
 " # FileType specific stuff --------------------------------------------------{{{
+
+" highlight variable under cursor (not smart)
+autocmd CursorMoved * silent! exe printf('match Underlined /\<%s\>/', expand('<cword>'))
 
 " git commit
 " disable folding
@@ -190,8 +196,6 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 
 " http://stackoverflow.com/questions/356126/how-can-you-automatically-remove-trailing-whitespace-in-vim
 autocmd BufWritePre *.py :%s/\s\+$//e
-" highlight variable under cursor (not smart)
-"autocmd BufRead,BufNewFile *.py,*.pyw,*.c  autocmd CursorMoved * silent! exe printf('match IncSearch /\<%s\>/', expand('<cword>'))
 " > Vim {{{
 
 augroup ft_vim
@@ -231,6 +235,7 @@ augroup ft_cpp
     autocmd BufWritePre *.c :%s/\s\+$//e
     autocmd BufWritePre *.h :%s/\s\+$//e
     autocmd BufWritePre *.cpp :%s/\s\+$//e
+
 augroup END
 
 " }}}
@@ -462,6 +467,8 @@ let g:EasyMotion_leader_key = '<Leader>m'
 let g:ctrlp_map = '<leader>o'
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.o,*.obj,*.pyc,*.d
 
+let g:ctrlp_custom_ignore = '*.html|*.xml'
+
 let g:ctrlp_extensions = ['buffertag']
 nnoremap <leader>t :CtrlPBufTag<CR>
 " }}}
@@ -473,9 +480,10 @@ set tags=./tags;
 map <F4> :TagbarOpenAutoClose<cr>
 
 " regenerate ctags for current dir
-map <F12> :!ctags --verbose -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+map <F12> :!ctags --verbose -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 " configure tags 
 set tags+=~/.vim/tags/std
+set tags+=~/.vim/tags/arma
 " OmniCppComplete
 let OmniCpp_NamespaceSearch = 1
 let OmniCpp_GlobalScopeSearch = 1
@@ -490,16 +498,6 @@ let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 " automatically open and close the popup menu / preview window
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set completeopt=menuone,menu,longest,preview
-
-
-" }}}
-" ## Indent guides --------------------------------------------------------- {{{
-
-" see :help indent_guides
-let g:indent_guides_color_change_percent = 4
-let g:indent_guides_guide_size = 1
-let g:indent_guides_start_level = 2
-let g:indent_guides_enable_on_vim_startup = 1
 
 
 " }}}
@@ -526,6 +524,7 @@ let g:Tex_MultipleCompileFormats = 'pdf'
 
 "let g:org_activate_intert_mode_mappings="1"
 let g:org_agenda_files=['~/org/index.org', '~/org/TodaY.org', '~/org/EUBShopFelix.org', '~/org/vim-orgmode.org', '~/org/MasterArbeit.org']
+
 
 " }}}
 " vim: ts=4:sw=4:expandtab
