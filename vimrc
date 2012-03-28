@@ -436,11 +436,6 @@ let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 
 
 " }}}
-" ## NERDTree -------------------------------------------------------------- {{{
-"
-nnoremap <leader>n :NERDTreeToggle<CR>
-
-" }}}
 " ## git fugitive ---------------------------------------------------------- {{{
 
 nnoremap <leader>gs :Gstatus<CR>
