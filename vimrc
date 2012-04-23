@@ -24,8 +24,8 @@ filetype indent on
 syntax on
 
 set t_Co=256 " Explicitly tell vim that the terminal has 256 colors
-set background=dark
-colorscheme molokai
+"set background=dark
+"colorscheme molokai
 
 set encoding=utf-8              " use UTF-8 encoding
 set number                      " always show line numbers
@@ -356,6 +356,7 @@ nnoremap * *<c-o>
 " Same when jumping around
 nnoremap g; g;zz
 nnoremap g, g,zz
+
 " }}}
 " # Line Return --------------------------------------------------------------{{{
 
@@ -387,7 +388,8 @@ let g:solarized_menu=1
 let g:solarized_termcolors=256
 
 "set background=dark
-"colorscheme solarized
+set background=light
+colorscheme solarized
 
 " }}}
 " ## vimroom settings ------------------------------------------------------ {{{
@@ -490,10 +492,10 @@ let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
 let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
 
 let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+
 " automatically open and close the popup menu / preview window
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set completeopt=menuone,menu,longest,preview
-
 
 " }}}
 " ## Latex ----------------------------------------------------------------- {{{
