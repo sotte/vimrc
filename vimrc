@@ -467,23 +467,31 @@ let g:EasyMotion_leader_key = '<Leader>m'
 let g:ctrlp_map = '<leader>o'
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.o,*.obj,*.pyc,*.d
 
-let g:ctrlp_custom_ignore = '*.html|*.xml'
+let g:ctrlp_custom_ignore = '*.html\|*.xml'
 
 let g:ctrlp_extensions = ['buffertag']
 nnoremap <leader>t :CtrlPBufTag<CR>
 " }}}
-" ## ctags, tag list and omnicppcomplete ----------------------------------- {{{
+" ## ctags and taglist ----------------------------------------------------- {{{
 
 let Tlist_Ctags_Cmd = "/usr/bin/ctags"
-"set tags=/tags,./../tags,./../../tags,./../../../tags,tags
+
+"  tags path for c++ std
+set tags+=~/.vim/tags/std
+"  tags path for armadillo math lib
+set tags+=~/.vim/tags/arma
+"  defualt tags path
 set tags=./tags;
-map <F4> :TagbarOpenAutoClose<cr>
 
 " regenerate ctags for current dir
 map <F12> :!ctags --verbose -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-" configure tags 
-set tags+=~/.vim/tags/std
-set tags+=~/.vim/tags/arma
+map <F4> :TagbarOpenAutoClose<cr>
+
+" open definition in vertical tab
+noremap <C-h> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+" }}}
+" ## omnicppcomplete ------------------------------------------------------- {{{
 " OmniCppComplete
 let OmniCpp_NamespaceSearch = 1
 let OmniCpp_GlobalScopeSearch = 1
