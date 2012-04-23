@@ -261,6 +261,9 @@ let maplocalleader = ","
 " additional esc with ii
 inoremap ii <ESC>
 
+" . should act as expected (repeat) in visual mode
+vnoremap . :norm.<CR>
+
 " clear the search buffer when hitting return
 nnoremap <leader><space> :nohlsearch<CR>
 
