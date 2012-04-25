@@ -338,15 +338,17 @@ nnoremap <C-u> <C-w>k
 " move down
 nnoremap <C-i> <C-w>l
 
-" Start python on F5
+" make
 map <F5> :make<CR>
 
 " nicer cursor movements:
 " use visible lines instead of real lines for cursor movement
 " NOTE: " due to the fact that I use colemak I have mapped AltGr+(n|e|i|u)
 " to cursormovements.
-map <up> gk
-map <down> gj
+nnoremap <up> gk
+nnoremap <down> gj
+nnoremap <left> h
+nnoremap <right> l
 
 " Keep search matches in the middle of the window and pulse the line when moving
 " to them.
@@ -467,7 +469,7 @@ let g:EasyMotion_leader_key = '<Leader>m'
 let g:ctrlp_map = '<leader>o'
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.o,*.obj,*.pyc,*.d
 
-let g:ctrlp_custom_ignore = '*.html\|*.xml'
+let g:ctrlp_custom_ignore = '\w+\.html$\|\w+\.xml$'
 
 let g:ctrlp_extensions = ['buffertag']
 nnoremap <leader>t :CtrlPBufTag<CR>
@@ -488,7 +490,8 @@ map <F12> :!ctags --verbose -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+
 map <F4> :TagbarOpenAutoClose<cr>
 
 " open definition in vertical tab
-noremap <C-h> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+nnoremap <C-h> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+nnoremap <C-]> :tjump <C-r><C-w><CR>
 
 " }}}
 " ## omnicppcomplete ------------------------------------------------------- {{{
