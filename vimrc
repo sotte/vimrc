@@ -383,7 +383,7 @@ let g:solarized_underline=1    "default value is 1
 let g:solarized_contrast="high"    "default value is normal
 let g:solarized_visibility="high"    "default value is normal
 let g:solarized_diffmode="high"    "default value is normal
-let g:solarized_hitrail=1    "default value is 0
+let g:solarized_hitrail=0    "default value is 0
 
 let g:solarized_termtrans=0
 let g:solarized_degrade=0
